@@ -1,18 +1,23 @@
-
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+/**
+ * This class displays a JavaFX app for login and registration.
+ *
+ * @author Ariya Briscoe
+ * @since 3/29/2026
+ */
 public class Main extends Application {
   @Override
   public void start(Stage stage) {
-    stage.setScene(new Scene(new Label("Hello JavaFX"), 300, 200));
-    stage.setTitle("Test");
+    Scene scene = SceneFactory.create(SceneType.LOGIN, stage);
+    stage.setScene(scene);
+    stage.setTitle("Login and Registration App goes here");
     stage.show();
   }
 
   public static void main(String[] args) {
-    launch();
+    launch(args);
   }
 }
