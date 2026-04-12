@@ -12,11 +12,13 @@ public class Main extends Application {
 
   /**
    * This is the primary stage for the application. Sets initial scene to login scene.
-   * @param stage
+   *
+   * @param stage the primary stage for this application
    */
   @Override
   public void start(Stage stage) {
-    // Creates the login scene using the SceneFactory and sets it as the initial scene for the stage.
+    // Creates the login scene using the SceneFactory
+    // and sets it as the initial scene for the stage.
     Scene scene = SceneFactory.create(SceneType.LOGIN, stage);
     stage.setScene(scene);
     stage.setTitle("Login Scene");
