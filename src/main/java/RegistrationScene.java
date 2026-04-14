@@ -1,9 +1,12 @@
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * Explanation: Registration scene for user registration to app.
- * Example Structure for scene layout
+ * Explanation: Registration scene for user registration to app. Example Structure for scene layout
  *
  * @author Ariya Briscoe
  * @since 4/11/2026
@@ -18,6 +21,12 @@ public class RegistrationScene {
    */
   public static Scene create(Stage stage) {
     // TODO: implement registration scene layout here
-    return null;
+    Button backButton = new Button("Back to Login");
+    backButton.setOnAction(e -> stage.setScene(SceneFactory.create(SceneType.LOGIN, stage)));
+    Label label = new Label("Registration Scene");
+    VBox layout = new VBox(5, backButton, label);
+    layout.setAlignment(Pos.CENTER);
+    Scene scene = new Scene(layout, 600, 500);
+    return scene;
   }
 }
