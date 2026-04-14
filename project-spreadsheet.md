@@ -42,3 +42,18 @@ above the required minimum.
   -     =sumif($H$11:$H$53,"="&A64,F12:F55)
   -     =sumif($H$11:$H$53,"="&A64,F13:F55)
   -     =sumif($H$11:$H$53,"="&A64,F14:F55)
+
+## subissue #12 Include Calculations for Submission Checklist
+The initial state of the Submission Checklist represents the requirements with []. This requires manual
+updates. I included calculations for cells C72 - C75 to automatically update with clear indicators, showing 
+whether a certain criteria has been met: 
+
+All required solo-claim items have a Claimed By + Issue # + Branch + PR #
+-     =IF(COUNTBLANK(H11:K17)=0,"✔", "✘")
+All Required per-student items have all four members filled in 
+-     =IF(COUNTIFS($G$19:$G$37,"Per-student",$H$19:$H$37,"<>")=COUNTIF($G$19:$G$37,"Per-student"),"✔","✗")
+Every student is at or above their minimum 
+-     =IF(MIN($E$62:$E$65)>=47,"✔","✗")
+Team total is at or above 200
+-     =IF($C$67>=200,"✔","✗")
+
