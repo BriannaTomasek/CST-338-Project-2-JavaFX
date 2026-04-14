@@ -1,4 +1,6 @@
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import javafx.scene.Scene;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -22,5 +24,12 @@ public class SceneFactoryTest {
   @DisplayName("Test REGISTRATION scene type exists")
   public void testRegistrationSceneType() {
     assertNotNull(SceneType.REGISTRATION);
+  }
+
+  // Test for SceneFactory exists
+  @Test
+  @DisplayName("Test SceneFactory exists")
+  public void testSceneFactoryExists() {
+    assertNotNull(SceneFactory.class);
   }
 }
