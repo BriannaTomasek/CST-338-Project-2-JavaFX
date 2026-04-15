@@ -28,6 +28,9 @@ public abstract class SceneFactory {
         return RegistrationScene.create(stage);
       default:
         throw new IllegalArgumentException("Invalid scene type: " + type);
+        case USER:
+        // This is how to add the user scene
+        return UserScene.create(stage);
     }
   }
 }
