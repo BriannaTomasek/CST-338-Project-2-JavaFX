@@ -21,7 +21,6 @@ public class Main extends Application {
     // and sets it as the initial scene for the stage.
     Scene scene = SceneFactory.create(SceneType.LOGIN, stage);
     stage.setScene(scene);
-    stage.setTitle("Login Scene");
     stage.show();
   }
 
