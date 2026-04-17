@@ -26,6 +26,9 @@ public abstract class SceneFactory {
       case REGISTRATION:
         // This is how to add the registration scene
         return RegistrationScene.create(stage);
+      // Adds the Admin user dashboard
+      case ADMINDASHBOARD:
+        return AdminDashboardScene.create(stage);
       default:
         throw new IllegalArgumentException("Invalid scene type: " + type);
     }

@@ -22,6 +22,11 @@ public class Main extends Application {
     Scene scene = SceneFactory.create(SceneType.LOGIN, stage);
     stage.setScene(scene);
     stage.show();
+
+    // Creates the admin dashboard scene using the SceneFactory
+    Scene adminScene = SceneFactory.create(SceneType.ADMINDASHBOARD, stage);
+    stage.setScene(adminScene);
+    stage.show();
   }
 
   public static void main(String[] args) {
