@@ -2,8 +2,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.geometry.Insets;   // ✅ CORRECT
 
@@ -27,31 +29,39 @@ public class AdminDashboardScene {
     String MANAGE_QUESTIONS = "Manage Questions";
     String MANAGE_USERS = "Manage Users";
 
+
     // Formatting (Needs adjusting)
     int PADDING = 20;
     int SPACING = 5;
     int BUTTON_SPACING = 50;
     int BUTTON_WIDTH = 200;
     int BUTTON_HEIGHT = 50;
+    int BUTTON_FONT_SIZE = 20;
 
-    // Labels
+    // Creating the labels
     Label welcome = new Label(WELCOME_MESSAGE);
     Label clickLogout = new Label(LOGOUT);
 
-    // Buttons
+    // Instantiate an Hbox manager
+    HBox hbox = new HBox();
+
+    //  Creating the buttons
     Button manageQuestions = new Button(MANAGE_QUESTIONS);
     Button manageUsers = new Button(MANAGE_USERS);
 
+    hbox.getChildren().addAll(manageQuestions, manageUsers, clickLogout);
 
     // Format: Alignment and Coloring for texts and buttons
     manageQuestions.setTextFill(Color.WHITE);
     manageQuestions.setStyle("-fx-background-color: #FF4D00;");
+    manageQuestions.setFont(Font.font(BUTTON_FONT_SIZE));
     manageQuestions.setMinHeight(BUTTON_HEIGHT);
     manageQuestions.setMaxWidth(BUTTON_WIDTH);
 
 
     manageUsers.setTextFill(Color.WHITE);
     manageUsers.setStyle("-fx-background-color: #FF4D00");
+    manageUsers.setFont(Font.font(BUTTON_FONT_SIZE));
     manageUsers.setMinHeight(BUTTON_HEIGHT);
     manageUsers.setMaxWidth(BUTTON_WIDTH);
 
