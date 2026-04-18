@@ -5,6 +5,8 @@
  * @since 4/13/26
  * @version 1.0 */
 
+import org.sqlite.SQLiteConfig.*;
+
 import java.rmi.ServerError;
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ public class DatabaseManager {
     String password = null;
     boolean isAdmin = false;
 
-    private static final String databaseURL = "jdbc:sqlite:app.db";
+    private static final String databaseURL = "jdbc:sqlite:project2database.db";
 
     private Connection connection;
 
@@ -34,6 +36,7 @@ public class DatabaseManager {
         } catch (SQLException e) {
             System.err.println("The connection has failed." + e.getMessage());
         }
+
     }
 
     public void close(){
@@ -49,14 +52,16 @@ public class DatabaseManager {
      * This creates the tables for the database.
      */
     private void createDatabaseTables() {
-        String sqlQuery1 = "CREATE DATABASE";
+        String sqlQuery1 = "CREATE DATABASE Users_Database";
         String sqlQuery2 = """
-            CREATE TABLE IF NOT EXISTS user (
-                userID          INTEGER FOREIGN KEY  AUTOINCREMENT
-                username        TEXT PRIMARY KEY
-                email_address   TEXT FOREIGN KEY NOT NULL
-                password        TEXT NOT NULL
-                isAdmin         INTEGER NOT NULL
+            CREATE TABLE IF NOT EXISTS Users_Table (
+                userID          INTEGER PRIMARY KEY  AUTOINCREMENT, 
+                username        TEXT FOREIGN KEY NOT NULL, 
+                email_address   TEXT FOREIGN KEY NOT NULL, 
+                password        TEXT NOT NULL, 
+                isAdmin         INTEGER NOT NULL DEFAULT 0,
+                done            INTEGER NOT NULL DEFAULT 0,
+                created         TEXT    DEFAULT (datetime('now'))
             )
         """;
 
@@ -68,7 +73,7 @@ public class DatabaseManager {
     }
 
     public void insertEntries(String name){
-        String sqlQuery200 = "INSERT INTO user (username) VALUES (?)";
+        String sqlQuery200 = "INSERT INTO Users_Table (username) VALUES (?)";
 
         String sqlQuery5 = """
             INSERT INTO user
@@ -81,12 +86,12 @@ public class DatabaseManager {
           DatabaseManager(username, emailAddress, password, isAdmin);
         """;
 
-        try(PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery200) {
+        try(PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery200)) {
             preparedStatement.setString(1, username);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Insertion of entries has failed." + e.getMessage());
-}
+
         }
     }
 
@@ -99,16 +104,16 @@ public class DatabaseManager {
         //String sqlQuery1000 = "SELECT userID FROM user WHERE userID == user.userID";
 
         String sqlQuery100 =
-                "SELECT * FROM user WHERE userID == user.userID";
+                "SELECT * FROM Users_Table WHERE userID == Users_Table.userID";
 
         String sqlQuery101 =
-                "SELECT * FROM user WHERE username == user.username";
+                "SELECT * FROM Users_Table WHERE username == Users_Table.username";
 
         String sqlQuery102 =
-                "SELECT * FROM user WHERE emailAddress == user.emailAddress";
+                "SELECT * FROM Users_Table WHERE emailAddress == Users_Table.emailAddress";
 
         String sqlQuery103 =
-                "SELECT * FROM user WHERE password == user.password";
+                "SELECT * FROM Users_Table WHERE password == Users_Table.password";
 
         try(Statement statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(sqlQuery100, sqlQuery101, sqlQuery102, sqlQuery103)){
@@ -130,7 +135,7 @@ public class DatabaseManager {
      * These are queries for the database.
      */
     public void update(int userID) {
-        String sqlUpdate1 -"UPDATE user SET updated = 1 WHERE userID = ?";
+        String sqlUpdate1 = "UPDATE Users_Table SET updated = 1 WHERE userID = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdate1)) {
             preparedStatement.setInt(1, userID);
             preparedStatement.executeUpdate();
@@ -140,7 +145,7 @@ public class DatabaseManager {
     }
 
     public void deleteAnItem (int userID) {
-        String sqlQueryDelete = "DELETE FROM user WHERE userID = ?";
+        String sqlQueryDelete = "DELETE FROM Users_Table WHERE userID = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQueryDelete)) {
             preparedStatement.setInt(1, userID);
             preparedStatement.executeUpdate();
