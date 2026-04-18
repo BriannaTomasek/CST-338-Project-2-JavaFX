@@ -72,11 +72,45 @@ public class RegistrationScene {
         Button signUpButton = new Button("SIGN ME UP!");
         signUpButton.setStyle("-fx-font-size: 18; -fx-padding: 15; -fx-background-color: #FF4D00; -fx-text-fill: white;");
 
+        // Error label for registration issues
+        Label errorLabel = new Label();
+        errorLabel.setStyle("-fx-text-fill: red; -fx-font-size: 12;");
+
+        // Disable sign up button if any field is empty
+        signUpButton.disableProperty().bind(
+                usernameField.textProperty().isEmpty()
+                        .or(passwordField.textProperty().isEmpty())
+                        .or(confirmField.textProperty().isEmpty())
+                        .or(emailField.textProperty().isEmpty())
+        );
+
         // Back to login button(top left corner)
         Button backButton = new Button("Back");
         String backButtonStyle = "-fx-font-size: 15; -fx-font-weight: bold; -fx-text-fill: #FFD900; -fx-background-color: transparent;";
         backButton.setStyle(backButtonStyle);
+
+        // Drop shadow for depth on back button
+        DropShadow backShadow = new DropShadow();
+        backButton.setEffect(backShadow);
+
+        // Back button goes to Login Scene
         backButton.setOnAction(e -> stage.setScene(SceneFactory.create(SceneType.LOGIN, stage)));
+
+        // Button handlers
+        signUpButton.setOnAction(e -> {
+            String password = passwordField.getText();
+            String confirmPassword = confirmField.getText();
+
+            if (password.length() < 8) {
+                errorLabel.setText("Password must be at least 8 characters");
+            } else if (!password.equals(confirmPassword)) {
+                errorLabel.setText("Passwords do not match");
+            } else {
+                errorLabel.setText("");
+                System.out.println("Sign up clicked");
+            }
+        });
+
 
         // Top left back button
         HBox topBar = new HBox(backButton);
@@ -90,7 +124,7 @@ public class RegistrationScene {
                 passwordLabel, passwordField,
                 confirmLabel, confirmField,
                 emailLabel, emailField,
-                signUpButton
+                signUpButton, errorLabel
         );
         root.setStyle("-fx-background-color: #1A5064;");
         root.setAlignment(Pos.TOP_CENTER);
