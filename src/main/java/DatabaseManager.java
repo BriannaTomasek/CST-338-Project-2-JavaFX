@@ -39,6 +39,9 @@ public class DatabaseManager {
 
     }
 
+    /**
+     * This method closes the connection.
+     */
     public void close(){
         try{
             if (connection != null && !connection.isClosed())
@@ -52,13 +55,13 @@ public class DatabaseManager {
      * This creates the tables for the database.
      */
     private void createDatabaseTables() {
-        String sqlQuery1 = "CREATE DATABASE Users_Database";
+        String sqlQuery1 = "CREATE DATABASE users_database";
         String sqlQuery2 = """
-            CREATE TABLE IF NOT EXISTS Users_Table (
-                userID          INTEGER PRIMARY KEY  AUTOINCREMENT, 
-                username        TEXT FOREIGN KEY NOT NULL, 
-                email_address   TEXT FOREIGN KEY NOT NULL, 
-                password        TEXT NOT NULL, 
+            CREATE TABLE IF NOT EXISTS users (
+                userID          INTEGER PRIMARY KEY  AUTOINCREMENT,
+                username        TEXT FOREIGN KEY REFERENCES userID NOT NULL,
+                email_address   TEXT FOREIGN KEY REFERENCES email_address NOT NULL,
+                password        TEXT NOT NULL,
                 isAdmin         INTEGER NOT NULL DEFAULT 0,
                 done            INTEGER NOT NULL DEFAULT 0,
                 created         TEXT    DEFAULT (datetime('now'))
@@ -72,8 +75,11 @@ public class DatabaseManager {
         }
     }
 
+    /**
+     * These are insert queries for the database.
+     */
     public void insertEntries(String name){
-        String sqlQuery200 = "INSERT INTO Users_Table (username) VALUES (?)";
+        String sqlQuery200 = "INSERT INTO users (username) VALUES (?)";
 
         String sqlQuery5 = """
             INSERT INTO user
@@ -99,43 +105,45 @@ public class DatabaseManager {
      * These are queries to get information for each user from the database.
      */
     public List<String> getAllUserInfo() {
-        List <String> userStringList  = new ArrayList<>();
+        List <String> userstringList  = new ArrayList<>();
 
         //String sqlQuery1000 = "SELECT userID FROM user WHERE userID == user.userID";
 
         String sqlQuery100 =
-                "SELECT * FROM Users_Table WHERE userID == Users_Table.userID";
+                "SELECT * FROM users WHERE userID == users.userID";
 
         String sqlQuery101 =
-                "SELECT * FROM Users_Table WHERE username == Users_Table.username";
+                "SELECT * FROM users WHERE username == users.username";
 
         String sqlQuery102 =
-                "SELECT * FROM Users_Table WHERE emailAddress == Users_Table.emailAddress";
+                "SELECT * FROM users WHERE emailAddress == users.emailAddress";
 
         String sqlQuery103 =
-                "SELECT * FROM Users_Table WHERE password == Users_Table.password";
+                "SELECT * FROM users WHERE password == users.password";
 
         try(Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(sqlQuery100, sqlQuery101, sqlQuery102, sqlQuery103)){
+            ResultSet resultSet = statement.executeQuery(sqlQuery100);
+            ResultSet resultSet = statement.executeQuery(sqlQuery101);
+            ResultSet resultSet = statement.executeQuery(sqlQuery102);
+            ResultSet resultSet = statement.executeQuery(sqlQuery103)) {
             while (resultSet.next()){
-                userStringList.add(resultSet.getString("userID"));
-                userStringList.add(resultSet.getString("username"));
-                userStringList.add(resultSet.getString("emailAddress"));
-                userStringList.add(resultSet.getString("password"));
+                userstringList.add(resultSet.getString("userID"));
+                userstringList.add(resultSet.getString("username"));
+                userstringList.add(resultSet.getString("emailAddress"));
+                userstringList.add(resultSet.getString("password"));
             }
-
         } catch(SQLException e) {
             System.err.println("Failed to get all user information" + e.getMessage());
         }
-        return userStringList;
+        return userstringList;
     }
 
 
     /**
-     * These are queries for the database.
+     * These are update queries for the database.
      */
-    public void update(int userID) {
-        String sqlUpdate1 = "UPDATE Users_Table SET updated = 1 WHERE userID = ?";
+    public void markDown(int userID) {
+        String sqlUpdate1 = "UPDATE users SET done = 1 WHERE userID = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdate1)) {
             preparedStatement.setInt(1, userID);
             preparedStatement.executeUpdate();
@@ -144,8 +152,11 @@ public class DatabaseManager {
         }
     }
 
+    /**
+     * These are delete queries for the database.
+     */
     public void deleteAnItem (int userID) {
-        String sqlQueryDelete = "DELETE FROM Users_Table WHERE userID = ?";
+        String sqlQueryDelete = "DELETE FROM users WHERE userID = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQueryDelete)) {
             preparedStatement.setInt(1, userID);
             preparedStatement.executeUpdate();
@@ -161,6 +172,7 @@ public class DatabaseManager {
     //String sqlQuery4 = """
     // CREATE TABLE IF NOT EXISTS
     // """;
+}
 }
 
 
