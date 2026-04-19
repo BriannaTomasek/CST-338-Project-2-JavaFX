@@ -5,5 +5,5 @@
  * @since 4/11/2026
  */
 public enum SceneType {
-  LOGIN, ADMINDASHBOARD, REGISTRATION // Write scene types here, ex. LOGIN, REGISTRATION, DASHBOARD, ADMIN etc.
+  LOGIN, REGISTRATION, USER, GAME // Write scene types here, ex. LOGIN, REGISTRATION, DASHBOARD, ADMIN etc.
 }
