@@ -28,6 +28,7 @@ public class LoginScene {
    * @return the login scene
    */
   public static Scene create(Stage stage) {
+    // TODO: implement login validation and transition to dashboard scene on successful login from
     // Constants
     int SCENE_WIDTH = 600;
     int SCENE_HEIGHT = 500;
@@ -109,10 +110,31 @@ public class LoginScene {
     loginButton.setEffect(buttonShadow);
     signUpButton.setEffect(buttonShadow);
 
+    // Error label
+    Label errorLabel = new Label();
+    errorLabel.setStyle("-fx-text-fill: red; -fx-font-size: 12;");
+
+    // Disable login button if fields are empty (data binding)
+    loginButton.disableProperty().bind(
+            usernameField.textProperty().isEmpty().or(passwordField.textProperty().isEmpty())
+    );
+
     // Button handlers (SIGN UP -> go to registration scene, LOGIN -> Validate credentials and log
     // in)
-    loginButton.setOnAction(e -> System.out.println("Login clicked"));
-    // TODO: implement login validation and transition to dashboard scene on successful login from
+    loginButton.setOnAction(e -> {
+      String username = usernameField.getText();
+      String password = passwordField.getText();
+
+      if (username.length() < 3) {
+        errorLabel.setText("Username must be at least 3 characters");
+      } else if (password.length() < 8) {
+        errorLabel.setText("Password must be at least 8 characters");
+      } else {
+        errorLabel.setText("");
+        System.out.println("Login clicked: " + username);
+      }
+    });
+
     // database
     signUpButton.setOnAction(
         e -> stage.setScene(SceneFactory.create(SceneType.REGISTRATION, stage)));
@@ -121,12 +143,18 @@ public class LoginScene {
     HBox buttonBox = new HBox(40, loginButton, signUpButton);
     buttonBox.setAlignment(Pos.CENTER);
 
+
+    // Button and error box together
+    VBox buttonSection = new VBox(8, buttonBox, errorLabel);
+    buttonSection.setAlignment(Pos.CENTER);
+
+
     // Input box (username and password close together)
     VBox inputBox = new VBox(8, usernameField, passwordField);
     inputBox.setAlignment(Pos.CENTER);
 
     // Layout all elements in a VBox
-    VBox root = new VBox(16, titleLabel, cardBox, inputBox, buttonBox);
+    VBox root = new VBox(16, titleLabel, cardBox, inputBox, buttonSection);
     root.setPadding(new Insets(30, 20, 40, 20));
     root.setStyle("-fx-background-color: #1A5064;");
     root.setAlignment(Pos.TOP_CENTER);
