@@ -31,9 +31,9 @@ public abstract class SceneFactory {
         return AdminDashboardScene.create(stage);
       default:
         throw new IllegalArgumentException("Invalid scene type: " + type);
-        case USER:
+        //case USER:
         // This is how to add the user scene
-        return UserScene.create(stage);
+        //return UserScene.create(stage);
     }
   }
 }
