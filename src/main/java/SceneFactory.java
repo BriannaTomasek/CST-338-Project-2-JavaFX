@@ -19,8 +19,8 @@ public abstract class SceneFactory {
         return LoginScene.create(stage);
       case REGISTRATION:
         return RegistrationScene.create(stage);
-      case USER:
-        return UserScene.create(stage);
+      //case USER:
+        //return UserScene.create(stage);
       case ADMINDASHBOARD:
         return AdminDashboardScene.create(stage);
       default:
