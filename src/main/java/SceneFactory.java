@@ -23,11 +23,13 @@ public abstract class SceneFactory {
   public static Scene create(SceneType type, Stage stage) {
     switch (type) {
       case LOGIN:
-        // TODO: add login scene
-        return null;
+        return LoginScene.create(stage);
       case REGISTRATION:
-        // TODO: add registration scene
-        return null;
+        return RegistrationScene.create(stage);
+    //  case USER:
+      //  return UserScene.create(stage);
+      case ADMINDASHBOARD:
+        return AdminDashboardScene.create(stage);
       default:
         throw new IllegalArgumentException("Invalid scene type: " + type);
     }
