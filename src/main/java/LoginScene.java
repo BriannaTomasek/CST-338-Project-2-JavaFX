@@ -129,8 +129,11 @@ public class LoginScene {
       String error = controller.getErrorMessage(username, password);
       if (error.isEmpty()) {
         System.out.println("Login clicked: " + username);
+        // Navigate to USER scene on successful login
+        stage.setScene(SceneFactory.create(SceneType.USER, stage, db));
+      } else {
+        errorLabel.setText(error);
       }
-      errorLabel.setText(error);
     });
 
     // database

@@ -107,9 +107,16 @@ public class RegistrationScene {
 
             String error = controller.getErrorMessage(username, email, password, confirmPassword);
             if (error.isEmpty()) {
-                System.out.println("Sign up clicked");
+                if (db.registerUser(username, email, password)) {
+                    System.out.println("Registration successful");
+                    // TODO: Navigate to login scene
+                    stage.setScene(SceneFactory.create(SceneType.LOGIN, stage, db));
+                } else {
+                    errorLabel.setText("Username or email already exists");
+                }
+            } else {
+                errorLabel.setText(error);
             }
-            errorLabel.setText(error);
         });
 
 

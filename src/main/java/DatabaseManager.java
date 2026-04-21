@@ -335,6 +335,29 @@ public class DatabaseManager {
                 return false;
             }
 
+            // Ariya Briscoe
+
+            /**
+             * Registers a new user in the database
+             *
+             * @param username the username
+             * @param email    the email address
+             * @param password the password
+             * @return true if registration successful, false if username/email already exists
+             */
+            public boolean registerUser(String username, String email, String password) {
+                String query = "INSERT INTO Users (username, email_address, password) VALUES (?, ?, ?)";
+                try (PreparedStatement stmt = connection.prepareStatement(query)) {
+                    stmt.setString(1, username);
+                    stmt.setString(2, email);
+                    stmt.setString(3, password);
+                    stmt.executeUpdate();
+                    return true;
+                } catch (SQLException e) {
+                    System.err.println("Registration failed: " + e.getMessage());
+                    return false;
+                }
+            }
     }
 
 
