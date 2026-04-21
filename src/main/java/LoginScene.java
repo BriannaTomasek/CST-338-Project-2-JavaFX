@@ -27,7 +27,7 @@ public class LoginScene {
    * @param stage the stage for the scene to be displayed
    * @return the login scene
    */
-  public static Scene create(Stage stage) {
+  public static Scene create(Stage stage, DatabaseManager db) {
     // TODO: implement login validation and transition to dashboard scene on successful login from
     // Constants
     int SCENE_WIDTH = 600;
@@ -120,7 +120,7 @@ public class LoginScene {
     );
 
     // Event handlers with LoginController
-    LoginController controller = new LoginController();
+    LoginController controller = new LoginController(db);
 
     loginButton.setOnAction(e -> {
       String username = usernameField.getText();
@@ -135,7 +135,7 @@ public class LoginScene {
 
     // database
     signUpButton.setOnAction(
-        e -> stage.setScene(SceneFactory.create(SceneType.REGISTRATION, stage)));
+        e -> stage.setScene(SceneFactory.create(SceneType.REGISTRATION, stage, db)));
 
     // Layout buttons in HBox
     HBox buttonBox = new HBox(40, loginButton, signUpButton);

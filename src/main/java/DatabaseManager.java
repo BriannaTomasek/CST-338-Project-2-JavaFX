@@ -251,7 +251,7 @@ public class DatabaseManager {
              * These are update queries for the database.
              */
             public void updateUsername(String username){
-                String updateUsernameQuery = "UPDATE Users SET username = username WHERE userID = ?"
+                String updateUsernameQuery = "UPDATE Users SET username = username WHERE userID = ?";
                 try (PreparedStatement preparedStatement = connection.prepareStatement(updateUsernameQuery)) {
                     preparedStatement.setString(2, username);
                     preparedStatement.executeUpdate();
@@ -263,7 +263,7 @@ public class DatabaseManager {
              * These are update queries for the database.
              */
             public void updateEmailAddress(String email_address){
-                String updateEmailAddressQuery = "UPDATE Users SET email_address = email_address WHERE userID = ?"
+                String updateEmailAddressQuery = "UPDATE Users SET email_address = email_address WHERE userID = ?";
                 try (PreparedStatement preparedStatement = connection.prepareStatement(updateEmailAddressQuery)) {
                     preparedStatement.setString(3, email_address);
                     preparedStatement.executeUpdate();
@@ -276,7 +276,7 @@ public class DatabaseManager {
              * These are update queries for the database.
              */
             public void updatePassword(String password){
-                String updatePasswordQuery = "UPDATE Users SET password = password WHERE userID = ?"
+                String updatePasswordQuery = "UPDATE Users SET password = password WHERE userID = ?";
                 try (PreparedStatement preparedStatement = connection.prepareStatement(updatePasswordQuery)) {
                     preparedStatement.setString(4, password);
                     preparedStatement.executeUpdate();
@@ -289,7 +289,7 @@ public class DatabaseManager {
              * These are update queries for the database.
              */
             public void updateIsAdmin(Integer isAdmin){
-                String updateIsAdminQuery = "UPDATE Users SET isAdmin = isAdmin WHERE userID = ?"
+                String updateIsAdminQuery = "UPDATE Users SET isAdmin = isAdmin WHERE userID = ?";
                 try (PreparedStatement preparedStatement = connection.prepareStatement(updateIsAdminQuery)) {
                     preparedStatement.setInt(4, isAdmin);
                     preparedStatement.executeUpdate();

@@ -23,7 +23,7 @@ public class RegistrationScene {
      * @param stage the stage for the scene to be displayed
      * @return the Registration scene
      */
-    public static Scene create(Stage stage) {
+    public static Scene create(Stage stage, DatabaseManager db) {
         // TODO: implement registration into Database
         // Constants
         int SCENE_WIDTH = 600;
@@ -94,16 +94,18 @@ public class RegistrationScene {
         backButton.setEffect(backShadow);
 
         // Back button goes to Login Scene
-        backButton.setOnAction(e -> stage.setScene(SceneFactory.create(SceneType.LOGIN, stage)));
+        backButton.setOnAction(e -> stage.setScene(SceneFactory.create(SceneType.LOGIN, stage, db)));
 
         // Button handlers from registration controller
-        RegistrationController controller = new RegistrationController();
+        RegistrationController controller = new RegistrationController(db);
 
         signUpButton.setOnAction(e -> {
+            String username = usernameField.getText();
+            String email = emailField.getText();
             String password = passwordField.getText();
             String confirmPassword = confirmField.getText();
 
-            String error = controller.getErrorMessage(password, confirmPassword);
+            String error = controller.getErrorMessage(username, email, password, confirmPassword);
             if (error.isEmpty()) {
                 System.out.println("Sign up clicked");
             }
