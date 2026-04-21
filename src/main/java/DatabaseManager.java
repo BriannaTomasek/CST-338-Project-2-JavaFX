@@ -313,6 +313,28 @@ public class DatabaseManager {
 
             }
 
+            /**
+             * Validates login scene
+             * Checks to see if the password equals the password
+             * @param username
+             * @param password
+             * @return true if the password equals the password, otherwise returns false
+             */
+            //Ariya Briscoe
+            public boolean validateLogin(String username, String password) {
+                String query = "SELECT password FROM Users WHERE username = ?";
+                try (PreparedStatement stmt = connection.prepareStatement(query)) {
+                    stmt.setString(1, username);
+                    ResultSet rs = stmt.executeQuery();
+                    if (rs.next()) {
+                        return rs.getString("password").equals(password);
+                    }
+                } catch (SQLException e) {
+                    System.err.println("Login failed: " + e.getMessage());
+                }
+                return false;
+            }
+
     }
 
 
