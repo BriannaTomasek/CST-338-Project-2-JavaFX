@@ -2,7 +2,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * Explanation: This class creates different scenes based on the SceneType and stage.
+ * Explanation: Explanation: This class creates different scenes based on the SceneType and stage.
  * Steps: Each scene is implemented in its own class (LoginScene.java or Dashboard.java etc.). To
  * add a new scene, create yourScene.java Implement : public static Scene create (Stage, stage).
  * Then add a case to the switch statement in the create method of this class. add the scene type to
@@ -13,21 +13,27 @@ import javafx.stage.Stage;
  */
 public abstract class SceneFactory {
 
-  public static Scene create(SceneType type, Stage stage) {
+  /**
+   * This method creates a scene based on the given SceneType and stage. It uses a switch statement
+   *
+   * @return the scene given
+   */
+  public static Scene create(SceneType type, Stage stage, DatabaseManager db) {
     switch (type) {
       case LOGIN:
-        return LoginScene.create(stage);
+        // This is how to add the login scene
+        return LoginScene.create(stage, db);
       case REGISTRATION:
-        return RegistrationScene.create(stage);
-      //case USER:
-        //return UserScene.create(stage);
+        // This is how to add the registration scene
+        return RegistrationScene.create(stage, db);
+      // Adds the Admin user dashboard
       case ADMINDASHBOARD:
         return AdminDashboardScene.create(stage);
+    // case USER:
+        //return UserScene.create(stage);
       default:
         throw new IllegalArgumentException("Invalid scene type: " + type);
-        //case USER:
-        // This is how to add the user scene
-        //return UserScene.create(stage);
+
     }
   }
 }

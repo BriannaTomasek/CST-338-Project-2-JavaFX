@@ -27,8 +27,7 @@ public class LoginScene {
    * @param stage the stage for the scene to be displayed
    * @return the login scene
    */
-  public static Scene create(Stage stage) {
-    // TODO: implement login validation and transition to dashboard scene on successful login from
+  public static Scene create(Stage stage, DatabaseManager db) {
     // Constants
     int SCENE_WIDTH = 600;
     int SCENE_HEIGHT = 500;
@@ -101,7 +100,7 @@ public class LoginScene {
 
     // Styling buttons
     String buttonStyle =
-        "-fx-font-size: 15; -fx-font-weight: bold; -fx-text-fill: #FFD900; -fx-background-color: transparent;";
+        "-fx-font-size: 15; -fx-font-weight: bold ; -fx-text-fill: #FFD900; -fx-background-color: transparent;";
     loginButton.setStyle(buttonStyle);
     signUpButton.setStyle(buttonStyle);
 
@@ -120,7 +119,7 @@ public class LoginScene {
     );
 
     // Event handlers with LoginController
-    LoginController controller = new LoginController();
+    LoginController controller = new LoginController(db);
 
     loginButton.setOnAction(e -> {
       String username = usernameField.getText();
@@ -129,13 +128,16 @@ public class LoginScene {
       String error = controller.getErrorMessage(username, password);
       if (error.isEmpty()) {
         System.out.println("Login clicked: " + username);
+        // Navigate to USER scene on successful login  (One USER scene is added, logging in will take to USER SCENE)
+        stage.setScene(SceneFactory.create(SceneType.USER, stage, db));
+      } else {
+        errorLabel.setText(error);
       }
-      errorLabel.setText(error);
     });
 
     // database
     signUpButton.setOnAction(
-        e -> stage.setScene(SceneFactory.create(SceneType.REGISTRATION, stage)));
+        e -> stage.setScene(SceneFactory.create(SceneType.REGISTRATION, stage, db)));
 
     // Layout buttons in HBox
     HBox buttonBox = new HBox(40, loginButton, signUpButton);
