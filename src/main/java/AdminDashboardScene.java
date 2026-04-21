@@ -16,7 +16,7 @@ import javafx.geometry.Insets;   // ✅ CORRECT
  * @since 4/14/2026
  */
 public class AdminDashboardScene {
-  public static Scene create(Stage stage) {
+  public static Scene create(Stage stage, DatabaseManager db) {
     // Layout: Window dimensions in pixels
     int SCENE_WIDTH = 600;
     int SCENE_HEIGHT = 500;
