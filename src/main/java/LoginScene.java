@@ -28,7 +28,6 @@ public class LoginScene {
    * @return the login scene
    */
   public static Scene create(Stage stage, DatabaseManager db) {
-    // TODO: implement login validation and transition to dashboard scene on successful login from
     // Constants
     int SCENE_WIDTH = 600;
     int SCENE_HEIGHT = 500;
@@ -101,7 +100,7 @@ public class LoginScene {
 
     // Styling buttons
     String buttonStyle =
-        "-fx-font-size: 15; -fx-font-weight: bold; -fx-text-fill: #FFD900; -fx-background-color: transparent;";
+        "-fx-font-size: 15; -fx-font-weight: bold ; -fx-text-fill: #FFD900; -fx-background-color: transparent;";
     loginButton.setStyle(buttonStyle);
     signUpButton.setStyle(buttonStyle);
 
@@ -129,7 +128,7 @@ public class LoginScene {
       String error = controller.getErrorMessage(username, password);
       if (error.isEmpty()) {
         System.out.println("Login clicked: " + username);
-        // Navigate to USER scene on successful login
+        // Navigate to USER scene on successful login  (One USER scene is added, logging in will take to USER SCENE)
         stage.setScene(SceneFactory.create(SceneType.USER, stage, db));
       } else {
         errorLabel.setText(error);

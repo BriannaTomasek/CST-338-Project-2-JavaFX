@@ -24,7 +24,6 @@ public class RegistrationScene {
      * @return the Registration scene
      */
     public static Scene create(Stage stage, DatabaseManager db) {
-        // TODO: implement registration into Database
         // Constants
         int SCENE_WIDTH = 600;
         int SCENE_HEIGHT = 500;
@@ -109,7 +108,7 @@ public class RegistrationScene {
             if (error.isEmpty()) {
                 if (db.registerUser(username, email, password)) {
                     System.out.println("Registration successful");
-                    // TODO: Navigate to login scene
+                    // Navigate to login scene
                     stage.setScene(SceneFactory.create(SceneType.LOGIN, stage, db));
                 } else {
                     errorLabel.setText("Username or email already exists");
