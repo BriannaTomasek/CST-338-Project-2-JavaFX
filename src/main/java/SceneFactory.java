@@ -29,7 +29,7 @@ public abstract class SceneFactory {
       // Adds the Admin user dashboard
       case ADMINDASHBOARD:
         return AdminDashboardScene.create(stage);
-    //  case USER:
+    // case USER:
         //return UserScene.create(stage);
       default:
         throw new IllegalArgumentException("Invalid scene type: " + type);
