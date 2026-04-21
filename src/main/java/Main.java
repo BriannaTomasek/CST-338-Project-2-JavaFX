@@ -30,7 +30,7 @@ public class Main extends Application {
       db = new DatabaseManager();
       //Stage.setTitle("Database Manager");
       //stage.setScene(SceneFactory.create(SceneType.MAIN, stage, db));
-      stage.show();
+      //stage.show();
   }
     /**
      * stop method - window close (Vincent Marinello-Sweeney)
