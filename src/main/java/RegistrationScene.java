@@ -96,19 +96,18 @@ public class RegistrationScene {
         // Back button goes to Login Scene
         backButton.setOnAction(e -> stage.setScene(SceneFactory.create(SceneType.LOGIN, stage)));
 
-        // Button handlers
+        // Button handlers from registration controller
+        RegistrationController controller = new RegistrationController();
+
         signUpButton.setOnAction(e -> {
             String password = passwordField.getText();
             String confirmPassword = confirmField.getText();
 
-            if (password.length() < 8) {
-                errorLabel.setText("Password must be at least 8 characters");
-            } else if (!password.equals(confirmPassword)) {
-                errorLabel.setText("Passwords do not match");
-            } else {
-                errorLabel.setText("");
+            String error = controller.getErrorMessage(password, confirmPassword);
+            if (error.isEmpty()) {
                 System.out.println("Sign up clicked");
             }
+            errorLabel.setText(error);
         });
 
 

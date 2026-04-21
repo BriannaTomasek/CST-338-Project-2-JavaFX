@@ -119,20 +119,18 @@ public class LoginScene {
             usernameField.textProperty().isEmpty().or(passwordField.textProperty().isEmpty())
     );
 
-    // Button handlers (SIGN UP -> go to registration scene, LOGIN -> Validate credentials and log
-    // in)
+    // Event handlers with LoginController
+    LoginController controller = new LoginController();
+
     loginButton.setOnAction(e -> {
       String username = usernameField.getText();
       String password = passwordField.getText();
 
-      if (username.length() < 3) {
-        errorLabel.setText("Username must be at least 3 characters");
-      } else if (password.length() < 8) {
-        errorLabel.setText("Password must be at least 8 characters");
-      } else {
-        errorLabel.setText("");
+      String error = controller.getErrorMessage(username, password);
+      if (error.isEmpty()) {
         System.out.println("Login clicked: " + username);
       }
+      errorLabel.setText(error);
     });
 
     // database
