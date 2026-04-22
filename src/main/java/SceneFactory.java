@@ -1,4 +1,8 @@
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -15,19 +19,53 @@ public abstract class SceneFactory {
 
   public static Scene create(SceneType type, Stage stage, DatabaseManager db) {
     switch (type) {
-      case LOGIN:
-        return LoginScene.create(stage, db);
-      case REGISTRATION:
-        return RegistrationScene.create(stage, db);
-      //case USER:
-        //return UserScene.create(stage, db);
-      case ADMINDASHBOARD:
-        return AdminDashboardScene.create(stage, db);
-      default:
-        throw new IllegalArgumentException("Invalid scene type: " + type);
+        case LOGIN:
+            return LoginScene.create(stage, db);
+        case REGISTRATION:
+            return RegistrationScene.create(stage, db);
+        //case USER:
+            //return UserScene.create(stage, db);
+        case ADMINDASHBOARD:
+            return AdminDashboardScene.create(stage, db);
+        //case MAIN: //Vincent
+            //return MainScene(stage, db);
+        case DASHBOARD: //Vincent
+            return buildDashboardScene(stage, db);
+        default:
+            throw new IllegalArgumentException("Invalid scene type: " + type);
         //case USER:
         // This is how to add the user scene
-        //return UserScene.create(stage, db);
+            //return UserScene.create(stage, db);
     }
   }
+
+    /**
+     * Creates the dashboard scene
+     * @param stage
+     * @param db
+     * @return scene with 600x400 dimensions
+     */
+    //Vincent Marinello-Sweeney
+    private static Scene buildDashboardScene(Stage stage, DatabaseManager db) {
+        ListView<String> list = new ListView<>();
+
+        list.getItems().addAll(db.getAllUserInfo());
+
+        Button addButton = new Button("Add Item");
+        addButton.setOnAction(e -> {
+            db.insertName("New User");
+            list.getItems().setAll(db.getAllUserInfo());
+
+        });
+        Label countLabel = new Label("Users: " + db.getAllUserInfo().size());
+        addButton.setOnAction(e-> {
+            //db.insertName(nameField.getText());
+            list.getItems().setAll(db.getAllUserInfo());
+            list.getItems().setAll(db.getAllUserInfo());
+        });
+
+        VBox layout = new VBox(15, list, addButton);
+        return new Scene(layout, 600, 400);
+    }
+
 }
