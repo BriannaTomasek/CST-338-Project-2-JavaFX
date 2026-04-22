@@ -13,16 +13,16 @@ import javafx.stage.Stage;
  */
 public abstract class SceneFactory {
 
-  public static Scene create(SceneType type, Stage stage) {
+  public static Scene create(SceneType type, Stage stage, DatabaseManager db) {
     switch (type) {
       case LOGIN:
-        return LoginScene.create(stage);
+        return LoginScene.create(stage, db);
       case REGISTRATION:
-        return RegistrationScene.create(stage);
+        return RegistrationScene.create(stage, db);
       //case USER:
         //return UserScene.create(stage);
       case ADMINDASHBOARD:
-        return AdminDashboardScene.create(stage);
+        return AdminDashboardScene.create(stage, db);
       default:
         throw new IllegalArgumentException("Invalid scene type: " + type);
         //case USER:
