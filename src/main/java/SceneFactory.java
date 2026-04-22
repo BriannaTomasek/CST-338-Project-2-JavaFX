@@ -29,11 +29,11 @@ public abstract class SceneFactory {
       // Adds the Admin user dashboard
       case ADMINDASHBOARD:
         return AdminDashboardScene.create(stage);
+      case QUESTIONSEDITOR:
+        //This is how to add the questions editor scene
+        return QuestionsEditorScene.create(stage);
       default:
         throw new IllegalArgumentException("Invalid scene type: " + type);
-       // case USER:
-        // This is how to add the user scene
-       // return UserScene.create(stage);
     }
   }
 }
