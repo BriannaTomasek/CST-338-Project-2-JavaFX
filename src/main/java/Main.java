@@ -27,14 +27,15 @@ public class Main extends Application {
     stage.show();
 
 
-    /* For testing: Displays the admin dashboard at startup.
-       To be deleted after admin dashboard is fully implemented
-
-    Scene admin = SceneFactory.create(SceneType.ADMINDASHBOARD, stage);
+    /* For testing: Displays the Manage Questions Editor scene at startup.
+       To be deleted after Questions editor is fully implemented
+    */
+    /*
+    Scene admin = SceneFactory.create(SceneType.QUESTIONSEDITOR, stage);
     stage.setScene(admin);
     stage.show();
+     */
 
-    */
 
     //Create DatabaseManager (Vincent Marinello-Sweeney)
       db = new DatabaseManager();
