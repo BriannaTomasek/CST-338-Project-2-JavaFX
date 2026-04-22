@@ -3,6 +3,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -18,65 +20,80 @@ import javafx.geometry.Insets;   // ✅ CORRECT
  * @since 4/14/2026
  */
 public class AdminDashboardScene {
-  public static Scene create(Stage stage) {
+
+  public static Scene create(Stage stage) {//}, String username) {
     // Layout: Window dimensions in pixels
     int SCENE_WIDTH = 600;
     int SCENE_HEIGHT = 500;
 
     // Prompts and texts
-    String WELCOME_MESSAGE = "Welcome!";
+    //String WELCOME_MESSAGE = "Welcome!";
+    String WELCOME_MESSAGE = "Welcome, %s!";
+
     String LOGOUT =  "Logout";
     String MANAGE_QUESTIONS = "Manage Questions";
     String MANAGE_USERS = "Manage Users";
 
 
     // Formatting (Needs adjusting)
-    int PADDING = 20;
-    int SPACING = 5;
+    int SPACING = 30;
+    int TEXT_SIZE = 45;
     int BUTTON_SPACING = 50;
     int BUTTON_WIDTH = 200;
     int BUTTON_HEIGHT = 50;
     int BUTTON_FONT_SIZE = 20;
 
     // Creating the labels
+    //Label welcome = new Label(String.format(WELCOME_MESSAGE, username));
+
     Label welcome = new Label(WELCOME_MESSAGE);
     Label clickLogout = new Label(LOGOUT);
-
-    // Instantiate an Hbox manager
-    HBox hbox = new HBox();
 
     //  Creating the buttons
     Button manageQuestions = new Button(MANAGE_QUESTIONS);
     Button manageUsers = new Button(MANAGE_USERS);
 
-    hbox.getChildren().addAll(manageQuestions, manageUsers, clickLogout);
+    /* Format: Alignment and Coloring for texts and buttons */
 
-    // Format: Alignment and Coloring for texts and buttons
-    manageQuestions.setTextFill(Color.WHITE);
-    manageQuestions.setStyle("-fx-background-color: #FF4D00;");
+    // Align
+    VBox buttonBox = new VBox(BUTTON_SPACING);
+    buttonBox.setAlignment(Pos.BASELINE_CENTER);
+    buttonBox.getChildren().addAll(manageQuestions, manageUsers);
     manageQuestions.setFont(Font.font(BUTTON_FONT_SIZE));
     manageQuestions.setMinHeight(BUTTON_HEIGHT);
     manageQuestions.setMaxWidth(BUTTON_WIDTH);
 
-
-    manageUsers.setTextFill(Color.WHITE);
-    manageUsers.setStyle("-fx-background-color: #FF4D00");
     manageUsers.setFont(Font.font(BUTTON_FONT_SIZE));
     manageUsers.setMinHeight(BUTTON_HEIGHT);
     manageUsers.setMaxWidth(BUTTON_WIDTH);
 
+    welcome.setFont(Font.font(TEXT_SIZE));
+    VBox.setMargin(welcome, new Insets(30, 0, 0, 0));
+
+    Region spacer = new Region();
+    Region spacer2 = new Region();
+    Region spacer3 = new Region();
+    VBox.setVgrow(spacer, Priority.ALWAYS);
+
+    //Cosmetic coloring
+    manageQuestions.setTextFill(Color.WHITE);
+    manageQuestions.setStyle("-fx-background-color: #FF4D00;");
+
+    manageUsers.setTextFill(Color.WHITE);
+    manageUsers.setStyle("-fx-background-color: #FF4D00");
     welcome.setTextFill(Color.GOLD);
     clickLogout.setTextFill(Color.GOLD);
 
-
-
     // Display
-    VBox root = new VBox(SPACING, welcome, clickLogout, manageQuestions, manageUsers);
+    VBox root = new VBox(SPACING);
+    root.getChildren().addAll(welcome, buttonBox, spacer2, clickLogout, spacer3);
     root.setStyle("-fx-background-color: #1A5064;");
-    root.setPadding(new Insets(PADDING));
     root.setAlignment(Pos.CENTER);
 
+
     Scene adminDashboardScene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
+
+
 
     return adminDashboardScene;
 
