@@ -2,7 +2,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -20,8 +19,7 @@ import javafx.geometry.Insets;   // ✅ CORRECT
  * @since 4/14/2026
  */
 public class AdminDashboardScene {
-
-  public static Scene create(Stage stage) {//}, String username) {
+  public static Scene create(Stage stage) {
     // Layout: Window dimensions in pixels
     int SCENE_WIDTH = 600;
     int SCENE_HEIGHT = 500;
@@ -88,13 +86,8 @@ public class AdminDashboardScene {
     root.setStyle("-fx-background-color: #1A5064;");
     root.setAlignment(Pos.CENTER);
 
-
     Scene adminDashboardScene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
 
-
-
     return adminDashboardScene;
-
   }
-
 }
