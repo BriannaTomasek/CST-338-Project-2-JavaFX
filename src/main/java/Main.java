@@ -22,7 +22,8 @@ public class Main extends Application {
   public void start(Stage stage) {
     // Creates the login scene using the SceneFactory
     // and sets it as the initial scene for the stage.
-    Scene scene = SceneFactory.create(SceneType.LOGIN, stage);
+    db = new DatabaseManager();
+    Scene scene = SceneFactory.create(SceneType.LOGIN, stage, db);
     stage.setScene(scene);
     stage.show();
 
@@ -38,10 +39,10 @@ public class Main extends Application {
 
 
     //Create DatabaseManager (Vincent Marinello-Sweeney)
-      db = new DatabaseManager();
+
       //Stage.setTitle("Database Manager");
       //stage.setScene(SceneFactory.create(SceneType.MAIN, stage, db));
-      stage.show();
+      //stage.show();
   }
     /**
      * stop method - window close (Vincent Marinello-Sweeney)
