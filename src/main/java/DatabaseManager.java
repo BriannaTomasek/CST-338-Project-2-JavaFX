@@ -296,7 +296,7 @@ public class DatabaseManager {
                 "SELECT * FROM main.Users WHERE password = main.Users.password";
 
         try (Statement statement = connection.createStatement();
-        ResultSet userIDQueryResultSet = statement.executeQuery(userIDQuery);) {
+             ResultSet userIDQueryResultSet = statement.executeQuery(userIDQuery);) {
             while (userIDQueryResultSet.next()) {
                 userStringList.add(userIDQueryResultSet.getString("userID"));
             }
@@ -305,7 +305,7 @@ public class DatabaseManager {
         }
 
         try (Statement statement = connection.createStatement();
-        ResultSet usernameQueryResultSet = statement.executeQuery(usernameQuery);) {
+             ResultSet usernameQueryResultSet = statement.executeQuery(usernameQuery);) {
 
             while (usernameQueryResultSet.next()) {
                 userStringList.add(usernameQueryResultSet.getString("username"));
@@ -315,7 +315,7 @@ public class DatabaseManager {
         }
 
         try (Statement statement = connection.createStatement();
-        ResultSet emailAddressQueryResultSet = statement.executeQuery(emailAddressQuery);) {
+             ResultSet emailAddressQueryResultSet = statement.executeQuery(emailAddressQuery);) {
 
             while (emailAddressQueryResultSet.next()) {
                 userStringList.add(emailAddressQueryResultSet.getString("emailAddress"));
@@ -335,7 +335,7 @@ public class DatabaseManager {
         }
 
         try (Statement statement = connection.createStatement();
-        ResultSet passwordQueryResultSet = statement.executeQuery(passwordQuery);) {
+             ResultSet passwordQueryResultSet = statement.executeQuery(passwordQuery);) {
 
             while (passwordQueryResultSet.next()) {
                 userStringList.add(passwordQueryResultSet.getString("password"));
@@ -446,6 +446,8 @@ public class DatabaseManager {
     };
 
 }
+
+
 
 
 
