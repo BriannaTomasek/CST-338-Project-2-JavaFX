@@ -128,8 +128,12 @@ public class LoginScene {
       String error = controller.getErrorMessage(username, password);
       if (error.isEmpty()) {
         System.out.println("Login clicked: " + username);
-        // Navigate to USER scene on successful login  (One USER scene is added, logging in will take to USER SCENE)
-        stage.setScene(SceneFactory.create(SceneType.USER, stage, db));
+        // Route to ADMINDASHBOARD if username starts with "admin", otherwise USER scene
+        if (username.toLowerCase().startsWith("admin")) {
+          stage.setScene(SceneFactory.create(SceneType.ADMINDASHBOARD, stage, db));
+        } else {
+          stage.setScene(SceneFactory.create(SceneType.USER, stage, db));
+        }
       } else {
         errorLabel.setText(error);
       }

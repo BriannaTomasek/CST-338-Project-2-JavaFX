@@ -28,7 +28,7 @@ public abstract class SceneFactory {
         return RegistrationScene.create(stage, db);
       // Adds the Admin user dashboard
       case ADMINDASHBOARD:
-        return AdminDashboardScene.create(stage);
+        return AdminDashboardScene.create(stage, db);
     // case USER:
         //return UserScene.create(stage);
       default:
