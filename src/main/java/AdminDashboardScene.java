@@ -24,16 +24,14 @@ public class AdminDashboardScene {
     int SCENE_WIDTH = 600;
     int SCENE_HEIGHT = 500;
 
-    // Prompts and texts
-    //String WELCOME_MESSAGE = "Welcome!";
+    // Labels texts
     String WELCOME_MESSAGE = "Welcome, %s!";
-
     String LOGOUT =  "Logout";
     String MANAGE_QUESTIONS = "Manage Questions";
     String MANAGE_USERS = "Manage Users";
 
 
-    // Formatting (Needs adjusting)
+    // Formatting
     int SPACING = 30;
     int TEXT_SIZE = 45;
     int BUTTON_SPACING = 50;
@@ -91,7 +89,5 @@ public class AdminDashboardScene {
     Scene adminDashboardScene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
 
     return adminDashboardScene;
-
   }
-
 }
