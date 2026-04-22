@@ -1,4 +1,7 @@
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -35,6 +38,18 @@ public class QuestionsEditorScene {
     int BUTTON_SPACING = 20;
 
     // Text area and fields
+    Label questions = new Label(QUESTIONS);
+    Label answer1 = new Label(OPTION1);
+    Label answer2 = new Label(OPTION2);
+    Label answer3 = new Label(OPTION3);
+    // Text are for the question being added
+    TextArea textArea = new TextArea(QUESTIONS_PROMPT);
+    textArea.setEditable(true);
+    textArea.setWrapText(true);
+
+    TextField option1 = new TextField(OPTION_PROMPT);
+    TextField option2 = new TextField(OPTION_PROMPT);
+    TextField option3 = new TextField(OPTION_PROMPT);
 
     //Buttons
 
@@ -43,7 +58,8 @@ public class QuestionsEditorScene {
     // Scene coloring
 
     // Scene structure
-    VBox root = new VBox(SPACING);
+    VBox root = new VBox(questions, textArea,
+                        option1, answer1,option2, answer2,option3, answer3);
     Scene questionsEditorScene= new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
 
     return questionsEditorScene;
