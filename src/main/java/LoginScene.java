@@ -27,8 +27,7 @@ public class LoginScene {
    * @param stage the stage for the scene to be displayed
    * @return the login scene
    */
-  public static Scene create(Stage stage) {
-    // TODO: implement login validation and transition to dashboard scene on successful login from
+  public static Scene create(Stage stage, DatabaseManager db) {
     // Constants
     int SCENE_WIDTH = 600;
     int SCENE_HEIGHT = 500;
@@ -101,7 +100,7 @@ public class LoginScene {
 
     // Styling buttons
     String buttonStyle =
-        "-fx-font-size: 15; -fx-font-weight: bold; -fx-text-fill: #FFD900; -fx-background-color: transparent;";
+        "-fx-font-size: 15; -fx-font-weight: bold ; -fx-text-fill: #FFD900; -fx-background-color: transparent;";
     loginButton.setStyle(buttonStyle);
     signUpButton.setStyle(buttonStyle);
 
@@ -119,25 +118,30 @@ public class LoginScene {
             usernameField.textProperty().isEmpty().or(passwordField.textProperty().isEmpty())
     );
 
-    // Button handlers (SIGN UP -> go to registration scene, LOGIN -> Validate credentials and log
-    // in)
+    // Event handlers with LoginController
+    LoginController controller = new LoginController(db);
+
     loginButton.setOnAction(e -> {
       String username = usernameField.getText();
       String password = passwordField.getText();
 
-      if (username.length() < 3) {
-        errorLabel.setText("Username must be at least 3 characters");
-      } else if (password.length() < 8) {
-        errorLabel.setText("Password must be at least 8 characters");
-      } else {
-        errorLabel.setText("");
+      String error = controller.getErrorMessage(username, password);
+      if (error.isEmpty()) {
         System.out.println("Login clicked: " + username);
+        // Route to ADMINDASHBOARD if username starts with "admin", otherwise USER scene
+        if (username.toLowerCase().startsWith("admin")) {
+          stage.setScene(SceneFactory.create(SceneType.ADMINDASHBOARD, stage, db));
+        } else {
+          stage.setScene(SceneFactory.create(SceneType.USER, stage, db));
+        }
+      } else {
+        errorLabel.setText(error);
       }
     });
 
     // database
     signUpButton.setOnAction(
-        e -> stage.setScene(SceneFactory.create(SceneType.REGISTRATION, stage)));
+        e -> stage.setScene(SceneFactory.create(SceneType.REGISTRATION, stage, db)));
 
     // Layout buttons in HBox
     HBox buttonBox = new HBox(40, loginButton, signUpButton);
