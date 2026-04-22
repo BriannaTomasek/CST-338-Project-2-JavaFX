@@ -20,14 +20,14 @@ public abstract class SceneFactory {
       case REGISTRATION:
         return RegistrationScene.create(stage, db);
       //case USER:
-        //return UserScene.create(stage);
+        //return UserScene.create(stage, db);
       case ADMINDASHBOARD:
         return AdminDashboardScene.create(stage, db);
       default:
         throw new IllegalArgumentException("Invalid scene type: " + type);
         //case USER:
         // This is how to add the user scene
-        //return UserScene.create(stage);
+        //return UserScene.create(stage, db);
     }
   }
 }
