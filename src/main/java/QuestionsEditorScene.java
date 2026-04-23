@@ -39,17 +39,21 @@ public class QuestionsEditorScene {
 
     // Text area and fields
     Label questions = new Label(QUESTIONS);
-    Label answer1 = new Label(OPTION1);
-    Label answer2 = new Label(OPTION2);
-    Label answer3 = new Label(OPTION3);
+    Label option1 = new Label(OPTION1);
+    Label option2 = new Label(OPTION2);
+    Label option3 = new Label(OPTION3);
     // Text are for the question being added
-    TextArea textArea = new TextArea(QUESTIONS_PROMPT);
+    TextArea textArea = new TextArea();
+    textArea.setPromptText(QUESTIONS_PROMPT);
     textArea.setEditable(true);
     textArea.setWrapText(true);
 
-    TextField option1 = new TextField(OPTION_PROMPT);
-    TextField option2 = new TextField(OPTION_PROMPT);
-    TextField option3 = new TextField(OPTION_PROMPT);
+    TextField answer1 = new TextField();
+    TextField answer2 = new TextField();
+    TextField answer3 = new TextField();
+    answer1.setPromptText(OPTION_PROMPT);
+    answer2.setPromptText(OPTION_PROMPT);
+    answer3.setPromptText(OPTION_PROMPT);
 
     //Buttons
 
@@ -59,7 +63,7 @@ public class QuestionsEditorScene {
 
     // Scene structure
     VBox root = new VBox(questions, textArea,
-                        option1, answer1,option2, answer2,option3, answer3);
+                        option1, answer1, option2, answer2, option3, answer3);
     Scene questionsEditorScene= new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
 
     return questionsEditorScene;
