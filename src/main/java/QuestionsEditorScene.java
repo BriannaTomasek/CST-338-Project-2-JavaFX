@@ -151,6 +151,28 @@ public class QuestionsEditorScene {
     mainMenu.setEffect(buttonShadow);
     mainMenu.setTextFill(Color.WHITE);
 
+    // Event handler
+    mainMenu.setOnAction(event -> {
+      stage.setScene(SceneFactory.create(SceneType.ADMINDASHBOARD, stage, db));
+    });
+
+    submit.setOnAction(event -> {
+      // Read the text from the input boxes into a variable
+      String questionEntry = textArea.getText();
+      String answer1Entry = answer1.getText();
+      String answer2Entry = answer2.getText();
+      String answer3Entry = answer3.getText();
+
+      // Test that the submit button is working accordingly
+      System.out.println("Question: " + questionEntry);
+      System.out.println("Answer1: " + answer1Entry);
+      System.out.println("Answer2: " + answer2Entry);
+      System.out.println("Answer3: " + answer3Entry);
+
+      // Link the controller of the questions editor controller to manage questiosn into the database
+    });
+
+
     // Scene structure
     VBox root = new VBox(SPACING);
     root.setStyle("-fx-background-color: #1A5064;");
