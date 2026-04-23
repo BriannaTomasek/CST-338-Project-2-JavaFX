@@ -1,10 +1,10 @@
 /**
- * This class creates and edits the database.
+ * This class creates and edits the Users database.
  * @author Vincent Marinello-Sweeney
  * created 4/13/26
  * @since 4/13/26
- * @version 9.0
- * */
+ * @version 10.0
+ */
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -76,7 +76,7 @@ public class DatabaseManager {
     private void createTables() {
 
         String createResultsTableQuery = """
-        CREATE TABLE IF NOT EXISTS main.Results (
+        CREATE TABLE IF NOT EXISTS Results (
             userID              INTEGER PRIMARY KEY UNIQUE NOT NULL,
             username            TEXT    UNIQUE NOT NULL,
             email_address       TEXT    UNIQUE NOT NULL,
@@ -101,7 +101,7 @@ public class DatabaseManager {
         }
 
         String createUsersTableQuery = """
-        CREATE TABLE IF NOT EXISTS main.Users (
+        CREATE TABLE IF NOT EXISTS Users (
             userID          INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE REFERENCES main.Results(userID) NOT NULL,
             username        TEXT    REFERENCES main.Results(username) UNIQUE NOT NULL,
             email_address   TEXT    REFERENCES main.Results(email_address) UNIQUE NOT NULL,
@@ -120,7 +120,7 @@ public class DatabaseManager {
         }
 
         String createManageQuestionsTableQuery = """
-        CREATE TABLE IF NOT EXISTS main.Manage_Questions (
+        CREATE TABLE IF NOT EXISTS Manage_Questions (
             userID          INTEGER PRIMARY KEY UNIQUE NOT NULL,
             username        TEXT    UNIQUE NOT NULL,
             email_address   TEXT    UNIQUE NOT NULL,
@@ -180,8 +180,6 @@ public class DatabaseManager {
         }
     }
 
-
-
     /**
      * Validates login scene
      * Checks to see if the password equals the password
@@ -191,7 +189,7 @@ public class DatabaseManager {
      */
     // Login scene validation (Ariya Briscoe)
     public boolean validateLogin(String username, String password) {
-        String query = "SELECT password FROM main.Users WHERE username = ?";
+        String query = "SELECT password FROM Users WHERE username = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, username);
             ResultSet rs = stmt.executeQuery();

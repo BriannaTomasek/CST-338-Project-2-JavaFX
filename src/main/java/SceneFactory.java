@@ -17,7 +17,7 @@ import javafx.stage.Stage;
  */
 public abstract class SceneFactory {
 
-  public static Scene create(SceneType type, Stage stage, DatabaseManager db) {
+  public static Scene create(SceneType type, Stage stage, DatabaseManager db, Repository repository) {
     switch (type) {
         case LOGIN:
             return LoginScene.create(stage, db);
@@ -30,7 +30,7 @@ public abstract class SceneFactory {
         //case MAIN: //Vincent
             //return MainScene(stage, db);
         case DASHBOARD: //Vincent
-            return buildDashboardScene(stage, db);
+            return buildDashboardScene(stage, db, repository);
         case QUESTIONSEDITOR:
             //This is how to add the questions editor scene
             return QuestionsEditorScene.create(stage);
@@ -49,14 +49,15 @@ public abstract class SceneFactory {
      * @return scene with 600x400 dimensions
      */
     //Vincent Marinello-Sweeney
-    private static Scene buildDashboardScene(Stage stage, DatabaseManager db) {
+    private static Scene buildDashboardScene(Stage stage, DatabaseManager db, Repository repository) {
         ListView<String> list = new ListView<>();
 
         list.getItems().addAll(db.getAllUserInfo());
 
         Button addButton = new Button("Add Item");
         addButton.setOnAction(e -> {
-            db.insertName("New User");
+            //db.insertName("New User");
+            repository.insertName("New User");
             list.getItems().setAll(db.getAllUserInfo());
 
         });
