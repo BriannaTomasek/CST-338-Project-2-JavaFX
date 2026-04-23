@@ -8,9 +8,9 @@
 
 import java.util.List;
 //Implement the interface when component would like
-//to respond to changes in the list of todos
+//to respond to changes in the list of users
 public interface Observer {
     // Call when list changes
-    //todos is the updated list of all users
-    void onListChanged(List/*<Users>*/ /*TodoItem*/ todos);
+    //userList is the updated list of all users
+    void onListChanged(List<Users> userList);
 }
