@@ -21,6 +21,10 @@ import javafx.geometry.Insets;   // ✅ CORRECT
  */
 public class AdminDashboardScene {
   public static Scene create(Stage stage) {
+    return create(stage, "");
+  }
+
+  public static Scene create(Stage stage, String username) {
     // Layout: Window dimensions in pixels
     int SCENE_WIDTH = 600;
     int SCENE_HEIGHT = 500;
@@ -44,7 +48,7 @@ public class AdminDashboardScene {
     // Creating the labels
     //Label welcome = new Label(String.format(WELCOME_MESSAGE, username));
 
-    Label welcome = new Label(WELCOME_MESSAGE);
+    Label welcome = new Label(String.format(WELCOME_MESSAGE, username));
     Label clickLogout = new Label(LOGOUT);
 
     //  Creating the buttons
