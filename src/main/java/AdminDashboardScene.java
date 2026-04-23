@@ -24,6 +24,7 @@ public class AdminDashboardScene {
     return create(stage, "");
   }
 
+
   public static Scene create(Stage stage, String username) {
     // Layout: Window dimensions in pixels
     int SCENE_WIDTH = 600;
@@ -98,6 +99,12 @@ public class AdminDashboardScene {
     clickLogout.setTextFill(Color.GOLD);
     clickLogout.setEffect(dropShadow);
     clickLogout.setFont(Font.font(LOGOUT_FONT_SIZE));
+
+    // Event handlers
+   /* manageQuestions.setOnMouseClicked(event -> {
+      stage.setScene(SceneFactory.create(SceneType.QUESTIONSEDITOR, stage));
+    });
+*/
 
     // Display
     VBox root = new VBox(SPACING);
