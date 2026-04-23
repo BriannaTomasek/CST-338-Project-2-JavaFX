@@ -446,20 +446,14 @@ public class DatabaseManager {
     };
 
     public boolean registerUser(String username, String email, String password) {
-        String query = "INSERT INTO Users (username, email_address, password, name) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, username);
-            stmt.setString(2, email);
-            stmt.setString(3, password);
-            stmt.setString(4, username);
-            stmt.executeUpdate();
+        try {
+            insertFullRow(0, username, email, username, password, 0, 0, 0);
             return true;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.err.println("Registration failed: " + e.getMessage());
             return false;
         }
     }
-
 
 }
 
