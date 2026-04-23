@@ -1,8 +1,13 @@
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -16,7 +21,7 @@ public class QuestionsEditorScene {
 
     //Layout: Window dimensions in pixels
     int SCENE_WIDTH = 600;
-    int SCENE_HEIGHT = 500;
+    int SCENE_HEIGHT = 650;
 
     // Prompts and texts
     String QUESTIONS = "Questions: ";
@@ -29,19 +34,19 @@ public class QuestionsEditorScene {
     String MAIN_MENU = "Main Menu";
 
     // Formatting variables (Adjust as needed)
-    int SPACING = 50;
+    int SPACING = 5;
     int TEXT_SIZE = 20;
-    int BUTTON_SIZE = 20;
     int BUTTON_FONT_SIZE = 20;
-    int BUTTON_WIDTH = 20;
-    int BUTTON_HEIGHT = 20;
-    int BUTTON_SPACING = 20;
+    int BUTTON_WIDTH = 200;
+    int BUTTON_HEIGHT = 50;
+    int BUTTON_SPACING = 5;
 
     // Text area and fields
     Label questions = new Label(QUESTIONS);
     Label option1 = new Label(OPTION1);
     Label option2 = new Label(OPTION2);
     Label option3 = new Label(OPTION3);
+
     // Text are for the question being added
     TextArea textArea = new TextArea();
     textArea.setPromptText(QUESTIONS_PROMPT);
@@ -56,14 +61,38 @@ public class QuestionsEditorScene {
     answer3.setPromptText(OPTION_PROMPT);
 
     //Buttons
+    Button submit = new Button(SUBMIT);
+    Button mainMenu = new Button(MAIN_MENU);
 
     //Alignment
+    VBox buttonBox = new VBox();
+    buttonBox.setSpacing(BUTTON_SPACING);
+    buttonBox.setAlignment(Pos.BASELINE_CENTER);
+    buttonBox.getChildren().addAll(submit, mainMenu);
+
+    submit.setMaxWidth(BUTTON_WIDTH);
+    mainMenu.setMinHeight(BUTTON_HEIGHT);
+    mainMenu.setMaxWidth(BUTTON_WIDTH);
+    mainMenu.setFont(Font.font(BUTTON_FONT_SIZE));
+
+    Region spacer = new Region();
+    Region spacer2 = new Region();
+    Region spacer3 = new Region();
+    VBox.setVgrow(spacer, Priority.ALWAYS);
+    VBox.setVgrow(spacer2, Priority.ALWAYS);
+    VBox.setVgrow(spacer3, Priority.ALWAYS);
+
+
 
     // Scene coloring
 
     // Scene structure
-    VBox root = new VBox(questions, textArea,
-                        option1, answer1, option2, answer2, option3, answer3);
+    VBox root = new VBox(SPACING);
+    root.getChildren().addAll(spacer, questions, textArea, spacer2,
+                        option1, answer1, option2, answer2, option3, answer3,
+                        buttonBox, spacer3);
+
+
     Scene questionsEditorScene= new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
 
     return questionsEditorScene;
