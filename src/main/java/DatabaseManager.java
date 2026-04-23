@@ -55,7 +55,7 @@ public class DatabaseManager {
     private void createTables() {
 
         String createResultsTableQuery = """
-        CREATE TABLE IF NOT EXISTS main.Results (
+        CREATE TABLE IF NOT EXISTS Results (
             userID              INTEGER PRIMARY KEY UNIQUE NOT NULL,
             username            TEXT    UNIQUE NOT NULL,
             email_address       TEXT    UNIQUE NOT NULL,
@@ -80,10 +80,10 @@ public class DatabaseManager {
         }
 
         String createUsersTableQuery = """
-        CREATE TABLE IF NOT EXISTS main.Users (
-            userID          INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE REFERENCES main.Results(userID) NOT NULL,
-            username        TEXT    REFERENCES main.Results(username) UNIQUE NOT NULL,
-            email_address   TEXT    REFERENCES main.Results(email_address) UNIQUE NOT NULL,
+        CREATE TABLE IF NOT EXISTS Users (
+            userID          INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE NOT NULL,
+            username        TEXT    UNIQUE NOT NULL,
+            email_address   TEXT    UNIQUE NOT NULL,
             name            TEXT    NOT NULL,
             password        TEXT    NOT NULL,
             isAdmin         INTEGER NOT NULL DEFAULT 0,
@@ -99,7 +99,7 @@ public class DatabaseManager {
         }
 
         String createManageQuestionsTableQuery = """
-        CREATE TABLE IF NOT EXISTS main.Manage_Questions (
+        CREATE TABLE IF NOT EXISTS Manage_Questions (
             userID          INTEGER PRIMARY KEY UNIQUE NOT NULL,
             username        TEXT    UNIQUE NOT NULL,
             email_address   TEXT    UNIQUE NOT NULL,
@@ -122,7 +122,7 @@ public class DatabaseManager {
         } catch (SQLException e) {
             System.err.println("Creation of Manage_Questions table has failed" + e.getMessage());
         }
-    };
+    }
 
     /**
      * These are insert queries for the database.
