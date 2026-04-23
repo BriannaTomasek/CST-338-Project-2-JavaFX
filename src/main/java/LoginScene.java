@@ -130,7 +130,7 @@ public class LoginScene {
         System.out.println("Login clicked: " + username);
         // Route to ADMINDASHBOARD if username starts with "admin", otherwise USER scene
         if (username.toLowerCase().startsWith("admin")) {
-          stage.setScene(AdminDashboardScene.create(stage, username));
+          stage.setScene(AdminDashboardScene.create(stage, db, username));
         } else {
           stage.setScene(SceneFactory.create(SceneType.USER, stage, db));
         }

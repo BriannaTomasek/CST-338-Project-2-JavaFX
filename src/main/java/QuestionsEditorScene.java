@@ -23,7 +23,7 @@ import javafx.stage.Stage;
  */
 public class QuestionsEditorScene {
 
-  public static Scene create( Stage stage) {
+  public static Scene create( Stage stage, DatabaseManager db) {
 
     //Layout: Window dimensions in pixels
     int SCENE_WIDTH = 600;
