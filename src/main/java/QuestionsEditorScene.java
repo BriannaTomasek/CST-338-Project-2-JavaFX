@@ -4,10 +4,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 /**
@@ -65,6 +69,11 @@ public class QuestionsEditorScene {
     Button mainMenu = new Button(MAIN_MENU);
 
     //Alignment
+    textArea.setMaxWidth(550);
+    answer1.setMaxWidth(550);
+    answer2.setMaxWidth(550);
+    answer3.setMaxWidth(550);
+
     VBox buttonBox = new VBox();
     buttonBox.setSpacing(BUTTON_SPACING);
     buttonBox.setAlignment(Pos.BASELINE_CENTER);
@@ -82,12 +91,42 @@ public class QuestionsEditorScene {
     VBox.setVgrow(spacer2, Priority.ALWAYS);
     VBox.setVgrow(spacer3, Priority.ALWAYS);
 
+    // Coloring and effects
+    DropShadow buttonShadow = new DropShadow();
+    textArea.setStyle("-fx-border-color: #000000;" +
+                      "-fx-border-width: 2px;");
+    textArea.setEffect(buttonShadow);
 
+    answer1.setStyle("-fx-border-color: #000000;" +
+        "-fx-border-width: 2px;");
+    answer1.setEffect(buttonShadow);
 
-    // Scene coloring
+    answer2.setStyle("-fx-border-color: #000000;" +
+        "-fx-border-width: 2px;");
+    answer2.setEffect(buttonShadow);
+
+    answer3.setStyle("-fx-border-color: #000000;" +
+        "-fx-border-width: 2px;");
+    answer3.setEffect(buttonShadow);
+
+    submit.setStyle("-fx-background-color: #FF4000;" +
+                      "-fx-border-color: #000000;" +
+                      "-fx-border-width: 2px;" +
+                      "-fx-background-insets: 0;");
+    submit.setEffect(buttonShadow);
+    submit.setTextFill(Color.WHITE);
+
+    mainMenu.setStyle("-fx-background-color: #FF4000;" +
+                      "-fx-border-color: #000000;" +
+                      "-fx-border-width: 2px;" +
+                      "-fx-background-insets: 0;");
+    mainMenu.setEffect(buttonShadow);
+    mainMenu.setTextFill(Color.WHITE);
 
     // Scene structure
     VBox root = new VBox(SPACING);
+    root.setStyle("-fx-background-color: #1A5064;");
+    root.setAlignment(Pos.CENTER);
     root.getChildren().addAll(spacer, questions, textArea, spacer2,
                         option1, answer1, option2, answer2, option3, answer3,
                         buttonBox, spacer3);
