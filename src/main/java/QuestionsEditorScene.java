@@ -79,6 +79,7 @@ public class QuestionsEditorScene {
     ComboBox correctAnswersBox = new ComboBox();
     correctAnswersBox.getItems().addAll(1, 2, 3);
     VBox.setMargin(correctAnswersBox, new Insets(0, 0, 20, 0));
+    Integer correctOption = (Integer) correctAnswersBox.getValue();
 
     //Alignment
     HBox row1 = new HBox(10);
@@ -167,6 +168,8 @@ public class QuestionsEditorScene {
       stage.setScene(SceneFactory.create(SceneType.ADMINDASHBOARD, stage, db));
     });
 
+    QuestionsEditorController q_controller = new QuestionsEditorController(db);
+
     submit.setOnAction(event -> {
       // Read the text from the input boxes into a variable
       String questionEntry = textArea.getText();
@@ -174,13 +177,7 @@ public class QuestionsEditorScene {
       String answer2Entry = answer2.getText();
       String answer3Entry = answer3.getText();
 
-      // Test that the submit button is working accordingly
-      System.out.println("Question: " + questionEntry);
-      System.out.println("Answer1: " + answer1Entry);
-      System.out.println("Answer2: " + answer2Entry);
-      System.out.println("Answer3: " + answer3Entry);
-
-      // Link the controller of the questions editor controller to manage questiosn into the database
+      q_controller.addQuestion(questionEntry, answer1Entry, answer2Entry, answer3Entry, correctOption);
     });
 
 
