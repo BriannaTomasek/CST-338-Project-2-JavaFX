@@ -22,12 +22,24 @@ public class Main extends Application {
   public void start(Stage stage) {
     // Creates the login scene using the SceneFactory
     // and sets it as the initial scene for the stage.
-    Scene scene = SceneFactory.create(SceneType.LOGIN, stage);
+    db = new DatabaseManager();
+    Scene scene = SceneFactory.create(SceneType.LOGIN, stage, db);
     stage.setScene(scene);
     stage.show();
 
+
+    /* For testing: Displays the Manage Questions Editor scene at startup.
+       To be deleted after Questions editor is fully implemented
+    */
+    /*
+    Scene admin = SceneFactory.create(SceneType.QUESTIONSEDITOR, stage);
+    stage.setScene(admin);
+    stage.show();
+     */
+
+
     //Create DatabaseManager (Vincent Marinello-Sweeney)
-      db = new DatabaseManager();
+
       //Stage.setTitle("Database Manager");
       //stage.setScene(SceneFactory.create(SceneType.MAIN, stage, db));
       //stage.show();
