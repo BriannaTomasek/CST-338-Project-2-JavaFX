@@ -76,10 +76,9 @@ public class QuestionsEditorScene {
     Button mainMenu = new Button(MAIN_MENU);
 
     // Dropdown Menu to select the correct response
-    ComboBox correctAnswersBox = new ComboBox();
+    ComboBox<Integer> correctAnswersBox = new ComboBox<>();
     correctAnswersBox.getItems().addAll(1, 2, 3);
     VBox.setMargin(correctAnswersBox, new Insets(0, 0, 20, 0));
-    Integer correctOption = (Integer) correctAnswersBox.getValue();
 
     //Alignment
     HBox row1 = new HBox(10);
@@ -176,6 +175,10 @@ public class QuestionsEditorScene {
       String answer1Entry = answer1.getText();
       String answer2Entry = answer2.getText();
       String answer3Entry = answer3.getText();
+
+      Integer correctOption = correctAnswersBox.getValue();
+
+      System.out.println("correct Answer: " + correctOption);
 
       q_controller.addQuestion(questionEntry, answer1Entry, answer2Entry, answer3Entry, correctOption);
     });

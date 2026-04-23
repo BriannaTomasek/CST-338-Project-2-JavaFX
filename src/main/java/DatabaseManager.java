@@ -105,6 +105,7 @@ public class DatabaseManager {
             answer1      TEXT    NOT NULL,
             answer2      TEXT    NOT NULL,
             answer3      TEXT    NOT NULL,
+            correctAnswer  INTEGER NOT NULL DEFAULT 0,
             created         TEXT    DEFAULT (datetime('now'))
         )
         """;
@@ -240,6 +241,28 @@ public class DatabaseManager {
             preparedStatement.setInt(7, done);
             preparedStatement.setInt(8, created);
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Insertion of entries has failed." + e.getMessage());
+
+        }
+    };
+
+    public void insertQuestions (String question, String answer1, String answer2, String answer3, Integer correctAnswer){
+
+        String insertFullRowQuery = """
+              INSERT INTO main.Manage_Questions 
+              (question, answer1, answer2, answer3, correctAnswer)
+              VALUES (?, ?, ?, ?, ?)
+              """;
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertFullRowQuery)) {
+            preparedStatement.setString(1, question);
+            preparedStatement.setString(2, answer1);
+            preparedStatement.setString(3, answer2);
+            preparedStatement.setString(4, answer3);
+            preparedStatement.setInt(5, correctAnswer);
+            preparedStatement.executeUpdate();
+
         } catch (SQLException e) {
             System.err.println("Insertion of entries has failed." + e.getMessage());
 
