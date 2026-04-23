@@ -1,7 +1,9 @@
+import java.util.Arrays;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -39,6 +41,7 @@ public class QuestionsEditorScene {
     String OPTION_PROMPT = "Enter optional answer";
     String SUBMIT = "Submit";
     String MAIN_MENU = "Main Menu";
+    String CORRECT_ANSWER = "Correct answer: ";
 
     // Formatting variables (Adjust as needed)
     int SPACING = 5;
@@ -53,6 +56,7 @@ public class QuestionsEditorScene {
     Label option1 = new Label(OPTION1);
     Label option2 = new Label(OPTION2);
     Label option3 = new Label(OPTION3);
+    Label correctAnswer = new Label(CORRECT_ANSWER);
 
     // Text are for the question being added
     TextArea textArea = new TextArea();
@@ -70,6 +74,11 @@ public class QuestionsEditorScene {
     //Buttons
     Button submit = new Button(SUBMIT);
     Button mainMenu = new Button(MAIN_MENU);
+
+    // Dropdown Menu to select the correct response
+    ComboBox correctAnswersBox = new ComboBox();
+    correctAnswersBox.getItems().addAll(1, 2, 3);
+    VBox.setMargin(correctAnswersBox, new Insets(0, 0, 20, 0));
 
     //Alignment
     HBox row1 = new HBox(10);
@@ -137,6 +146,8 @@ public class QuestionsEditorScene {
         "-fx-border-width: 2px;");
     answer3.setEffect(buttonShadow);
 
+    correctAnswer.setTextFill(Color.GOLD);
+
     submit.setStyle("-fx-background-color: #FF4000;" +
                       "-fx-border-color: #000000;" +
                       "-fx-border-width: 2px;" +
@@ -178,7 +189,8 @@ public class QuestionsEditorScene {
     root.setStyle("-fx-background-color: #1A5064;");
     root.setAlignment(Pos.CENTER);
     root.getChildren().addAll(spacer, questions, textArea, spacer2,
-                        row1, row2, row3, buttonBox, spacer3);
+                        row1, row2, row3, correctAnswer, correctAnswersBox, buttonBox, spacer3);
+    //root.getChildren().add(correctAnswersBox);
 
 
     Scene questionsEditorScene= new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
