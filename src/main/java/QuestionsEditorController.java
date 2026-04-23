@@ -20,7 +20,7 @@ public class QuestionsEditorController {
       return false;
     }
     // There must be a correct response selected
-    if(correctAnswer == null) {
+    if(correctAnswer == 0) {
       System.out.println("Error: Correct answer is null!");
       return false;
     }

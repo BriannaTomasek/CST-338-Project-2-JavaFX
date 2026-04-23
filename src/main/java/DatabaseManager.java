@@ -247,19 +247,20 @@ public class DatabaseManager {
         }
     };
 
-    public void insertQuestions (String questions, String answer1, String answer2, String answer3, Integer correctAnswer){
+    public void insertQuestions (String question, String answer1, String answer2, String answer3, Integer correctAnswer){
 
         String insertFullRowQuery = """
               INSERT INTO main.Manage_Questions 
-              (QID, questions, answer1, answer2, answer3, correctAnswer)
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+              (question, answer1, answer2, answer3, correctAnswer)
+              VALUES (?, ?, ?, ?, ?)
               """;
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertFullRowQuery)) {
+            preparedStatement.setString(1, question);
             preparedStatement.setString(2, answer1);
             preparedStatement.setString(3, answer2);
             preparedStatement.setString(4, answer3);
-            preparedStatement.setString(5, correctAnswer.toString());
+            preparedStatement.setInt(5, correctAnswer);
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
