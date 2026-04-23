@@ -100,19 +100,11 @@ public class DatabaseManager {
 
         String createManageQuestionsTableQuery = """
         CREATE TABLE IF NOT EXISTS Manage_Questions (
-            userID          INTEGER PRIMARY KEY UNIQUE NOT NULL,
-            username        TEXT    UNIQUE NOT NULL,
-            email_address   TEXT    UNIQUE NOT NULL,
-            name            TEXT    NOT NULL,
-            question_1      TEXT    NOT NULL,
-            question_2      TEXT    NOT NULL,
-            question_3      TEXT    NOT NULL,
-            question_4      TEXT    NOT NULL,
-            question_5      TEXT    NOT NULL,
-            question_6      TEXT    NOT NULL,
-            question_7      TEXT    NOT NULL,
-            isAdmin         INTEGER NOT NULL DEFAULT 0,
-            done            INTEGER NOT NULL DEFAULT 0,
+            QID          INTEGER PRIMARY KEY UNIQUE NOT NULL,
+            question      TEXT    NOT NULL,
+            answer1      TEXT    NOT NULL,
+            answer2      TEXT    NOT NULL,
+            answer3      TEXT    NOT NULL,
             created         TEXT    DEFAULT (datetime('now'))
         )
         """;
