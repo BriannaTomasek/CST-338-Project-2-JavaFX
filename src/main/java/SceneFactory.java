@@ -31,6 +31,9 @@ public abstract class SceneFactory {
             //return MainScene(stage, db);
         case DASHBOARD: //Vincent
             return buildDashboardScene(stage, db);
+        case QUESTIONSEDITOR:
+            //This is how to add the questions editor scene
+            return QuestionsEditorScene.create(stage);
         default:
             throw new IllegalArgumentException("Invalid scene type: " + type);
         //case USER:
