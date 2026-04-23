@@ -20,7 +20,7 @@ public class QuestionsEditorController {
       return false;
     }
     // There must be a correct response selected
-    if(correctAnswer == null) {
+    if(correctAnswer == 0) {
       System.out.println("Error: Correct answer is null!");
       return false;
     }
@@ -32,6 +32,8 @@ public class QuestionsEditorController {
     System.out.println("Answer3: " + answer3);
 
     //Add to the database
+    db.insertQuestions(question, answer1, answer2, answer3, correctAnswer);
+
     return true;
   }
 

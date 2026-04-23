@@ -102,8 +102,8 @@ public class DatabaseManager {
 
         String createUsersTableQuery = """
         CREATE TABLE IF NOT EXISTS Users (
-            userID          INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE REFERENCES Results(userID) NOT NULL,
-            username        TEXT    REFERENCES Results(username) UNIQUE NOT NULL,
+            userID          INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE /*REFERENCES Results(userID)*/ NOT NULL,
+            username        TEXT    /*REFERENCES Results(username)*/ UNIQUE NOT NULL,
             email_address   TEXT    UNIQUE NOT NULL,
             name            TEXT    NOT NULL,
             password        TEXT    NOT NULL,
@@ -121,14 +121,15 @@ public class DatabaseManager {
 
         String createManageQuestionsTableQuery = """
         CREATE TABLE IF NOT EXISTS Manage_Questions (
-            userID          INTEGER PRIMARY KEY UNIQUE NOT NULL,
+            userID          INTEGER /*PRIMARY KEY*/ UNIQUE NOT NULL,
             username        TEXT    UNIQUE NOT NULL,
             name            TEXT    NOT NULL,
-            QID             INTEGER /*PRIMARY KEY*/ UNIQUE NOT NULL,
+            QID             INTEGER PRIMARY KEY UNIQUE NOT NULL,
             question        TEXT    NOT NULL,
             answer1         TEXT    NOT NULL,
             answer2         TEXT    NOT NULL,
             answer3         TEXT    NOT NULL,
+            correctAnswer  INTEGER NOT NULL DEFAULT 0,
             isAdmin         INTEGER NOT NULL DEFAULT 0,
             done            INTEGER NOT NULL DEFAULT 0,
             created         TEXT    DEFAULT (datetime('now'))
@@ -146,7 +147,7 @@ public class DatabaseManager {
      * These are insert queries for the database.
      */
     public void insertUserID (int userID) {
-        String insertUserIDQuery = "INSERT INTO main.Users (userID) VALUES (?)";
+        String insertUserIDQuery = "INSERT INTO Users (userID) VALUES (?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertUserIDQuery)) {
             preparedStatement.setInt(1, userID);
             preparedStatement.executeUpdate();
@@ -159,7 +160,7 @@ public class DatabaseManager {
      * These are insert queries for the database.
      */
     public void insertUsername (String username) {
-        String insertUsernameQuery = "INSERT INTO main.Users (username) VALUES (?)";
+        String insertUsernameQuery = "INSERT INTO Users (username) VALUES (?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertUsernameQuery)) {
             preparedStatement.setString(2, username);
             preparedStatement.executeUpdate();
@@ -172,7 +173,7 @@ public class DatabaseManager {
      * These are insert queries for the database.
      */
     public void insertEmailAddress (String email_address) {
-        String insertEmailAddressQuery = "INSERT INTO main.Users (email_address) VALUES (?)";
+        String insertEmailAddressQuery = "INSERT INTO Users (email_address) VALUES (?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertEmailAddressQuery)) {
             preparedStatement.setString(3, email_address);
             preparedStatement.executeUpdate();
@@ -185,7 +186,7 @@ public class DatabaseManager {
      * These are insert queries for the database.
      */
     public void insertName (String name) {
-        String insertNameQuery = "INSERT INTO main.Users (name) VALUES (?)";
+        String insertNameQuery = "INSERT INTO Users (name) VALUES (?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertNameQuery)) {
             preparedStatement.setString(4, name);
             preparedStatement.executeUpdate();
@@ -198,7 +199,7 @@ public class DatabaseManager {
      * These are insert queries for the database.
      */
     public void insertPassword (String password) {
-        String insertPasswordQuery = "INSERT INTO main.Users (password) VALUES (?)";
+        String insertPasswordQuery = "INSERT INTO Users (password) VALUES (?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertPasswordQuery)) {
             preparedStatement.setString(5, insertPasswordQuery);
             preparedStatement.executeUpdate();
@@ -211,7 +212,7 @@ public class DatabaseManager {
      * These are insert queries for the database.
      */
     public void insertIsAdmin (int isAdmin) {
-        String insertIsAdminQuery = "INSERT INTO main.Users (isAdmin) VALUES (?)";
+        String insertIsAdminQuery = "INSERT INTO Users (isAdmin) VALUES (?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertIsAdminQuery)) {
             preparedStatement.setInt(6, isAdmin);
             preparedStatement.executeUpdate();
@@ -224,7 +225,7 @@ public class DatabaseManager {
      * These are insert queries for the database.
      */
     public void insertDone (int done) {
-        String insertDoneQuery = "INSERT INTO main.Users (done) VALUES (?)";
+        String insertDoneQuery = "INSERT INTO Users (done) VALUES (?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertDoneQuery)) {
             preparedStatement.setInt(7, done);
             preparedStatement.executeUpdate();
@@ -237,7 +238,7 @@ public class DatabaseManager {
      * These are insert queries for the database.
      */
     public void insertCreated (int created) {
-        String insertCreatedQuery = "INSERT INTO main.Users (created) VALUES (?)";
+        String insertCreatedQuery = "INSERT INTO Users (created) VALUES (?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertCreatedQuery)) {
             preparedStatement.setInt(8, created);
             preparedStatement.executeUpdate();
@@ -266,6 +267,28 @@ public class DatabaseManager {
             preparedStatement.setInt(7, done);
             preparedStatement.setInt(8, created);
             preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Insertion of entries has failed." + e.getMessage());
+
+        }
+    };
+
+    public void insertQuestions (String question, String answer1, String answer2, String answer3, Integer correctAnswer){
+
+        String insertFullRowQuery = """
+              INSERT INTO main.Manage_Questions 
+              (question, answer1, answer2, answer3, correctAnswer)
+              VALUES (?, ?, ?, ?, ?)
+              """;
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertFullRowQuery)) {
+            preparedStatement.setString(1, question);
+            preparedStatement.setString(2, answer1);
+            preparedStatement.setString(3, answer2);
+            preparedStatement.setString(4, answer3);
+            preparedStatement.setInt(5, correctAnswer);
+            preparedStatement.executeUpdate();
+
         } catch (SQLException e) {
             System.err.println("Insertion of entries has failed." + e.getMessage());
 
@@ -329,6 +352,7 @@ public class DatabaseManager {
         return false;
     }
 
+    // User registration (Ariya Briscoe)
     public boolean registerUser(String username, String email, String password) {
         String query = "INSERT INTO Users (username, email_address, name, password) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
