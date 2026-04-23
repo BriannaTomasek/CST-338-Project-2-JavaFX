@@ -32,6 +32,8 @@ public class QuestionsEditorController {
     System.out.println("Answer3: " + answer3);
 
     //Add to the database
+    db.insertQuestions(question, answer1, answer2, answer3, correctAnswer);
+
     return true;
   }
 
