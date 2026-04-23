@@ -105,6 +105,10 @@ public class AdminDashboardScene {
       stage.setScene(SceneFactory.create(SceneType.QUESTIONSEDITOR, stage, db));
     });
 
+   clickLogout.setOnMouseClicked(event -> {
+     stage.setScene(SceneFactory.create(SceneType.LOGIN, stage, db));
+   });
+
 
     // Display
     VBox root = new VBox(SPACING);
