@@ -37,22 +37,18 @@ public class DatabaseManager {
         } catch (SQLException e) {
             System.err.println("The connection has failed." + e.getMessage());
         }
-        /**
-         * Inner class DatabaseManagerInstance
-         */
-        class DatabaseManagerInstance {
-            /**
-             * Gets the instance of the DatabaseManager
-             * @return databaseManagerInstance, the instance of the DatabaseManager
-             */
 
-            public static DatabaseManager getDatabaseManagerInstance() {
-                if (databaseManagerInstance == null)
-                    databaseManagerInstance = new DatabaseManager();
-                return databaseManagerInstance;
-            };
-        };
-    };
+    }
+
+    /**
+     * Gets the instance of the DatabaseManager
+     * @return databaseManagerInstance, the instance of the DatabaseManager
+     */
+    public static DatabaseManager getDatabaseManagerInstance() {
+        if (databaseManagerInstance == null)
+            databaseManagerInstance = new DatabaseManager();
+        return databaseManagerInstance;
+    }
 
     /**
      * Gets the connection
@@ -72,7 +68,7 @@ public class DatabaseManager {
         }catch(SQLException e) {
             System.err.println(e.getMessage());
         }
-    };
+    }
 
     /**
      * This creates the tables for the database.
@@ -147,7 +143,7 @@ public class DatabaseManager {
         } catch (SQLException e) {
             System.err.println("Creation of Manage_Questions table has failed" + e.getMessage());
         }
-    };
+    }
 
     /**
      * These are queries to get information for each user from the database.
@@ -155,7 +151,7 @@ public class DatabaseManager {
     public List<String> getAllUserInfo() {
         List<String> userStringList = new ArrayList<>();
 
-        String notDoneQuery = "SELECT name FROM main.Users WHERE done = 0 ORDER BY created DESC";
+        String notDoneQuery = "SELECT name FROM Users WHERE done = 0 ORDER BY created DESC";
 
         try (Statement statement = connection.createStatement()) {
             ResultSet notDoneQueryResultSet = statement.executeQuery(notDoneQuery);
@@ -167,7 +163,7 @@ public class DatabaseManager {
         }
 
         return userStringList;
-    };
+    }
 
 
 
@@ -175,14 +171,14 @@ public class DatabaseManager {
      * These are markDone statements for the database.
      */
     public void markDone(int userID) {
-        String sqlUpdate1 = "UPDATE main.Users SET done = 1 WHERE userID = ?";
+        String sqlUpdate1 = "UPDATE Users SET done = 1 WHERE userID = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sqlUpdate1)) {
             preparedStatement.setInt(1, userID);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Update failed" + e.getMessage());
         }
-    };
+    }
 
 
 
@@ -206,7 +202,7 @@ public class DatabaseManager {
             System.err.println("Login failed: " + e.getMessage());
         }
         return false;
-    };
+    }
 
     public boolean registerUser(String username, String email, String password) {
         String query = "INSERT INTO Users (username, email_address, password, name) VALUES (?, ?, ?, ?)";
