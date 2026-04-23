@@ -27,17 +27,6 @@ public class Main extends Application {
     stage.setScene(scene);
     stage.show();
 
-
-    /* For testing: Displays the Manage Questions Editor scene at startup.
-       To be deleted after Questions editor is fully implemented
-    */
-    /*
-    Scene admin = SceneFactory.create(SceneType.QUESTIONSEDITOR, stage);
-    stage.setScene(admin);
-    stage.show();
-     */
-
-
     //Create DatabaseManager (Vincent Marinello-Sweeney)
 
       //Stage.setTitle("Database Manager");

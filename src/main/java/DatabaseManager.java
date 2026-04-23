@@ -102,9 +102,9 @@ public class DatabaseManager {
 
         String createUsersTableQuery = """
         CREATE TABLE IF NOT EXISTS Users (
-            userID          INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE REFERENCES main.Results(userID) NOT NULL,
-            username        TEXT    REFERENCES main.Results(username) UNIQUE NOT NULL,
-            email_address   TEXT    REFERENCES main.Results(email_address) UNIQUE NOT NULL,
+            userID          INTEGER PRIMARY KEY AUTOINCREMENT UNIQUE REFERENCES Results(userID) NOT NULL,
+            username        TEXT    REFERENCES Results(username) UNIQUE NOT NULL,
+            email_address   TEXT    UNIQUE NOT NULL,
             name            TEXT    NOT NULL,
             password        TEXT    NOT NULL,
             isAdmin         INTEGER NOT NULL DEFAULT 0,
@@ -123,15 +123,12 @@ public class DatabaseManager {
         CREATE TABLE IF NOT EXISTS Manage_Questions (
             userID          INTEGER PRIMARY KEY UNIQUE NOT NULL,
             username        TEXT    UNIQUE NOT NULL,
-            email_address   TEXT    UNIQUE NOT NULL,
             name            TEXT    NOT NULL,
-            question_1      TEXT    NOT NULL,
-            question_2      TEXT    NOT NULL,
-            question_3      TEXT    NOT NULL,
-            question_4      TEXT    NOT NULL,
-            question_5      TEXT    NOT NULL,
-            question_6      TEXT    NOT NULL,
-            question_7      TEXT    NOT NULL,
+            QID             INTEGER /*PRIMARY KEY*/ UNIQUE NOT NULL,
+            question        TEXT    NOT NULL,
+            answer1         TEXT    NOT NULL,
+            answer2         TEXT    NOT NULL,
+            answer3         TEXT    NOT NULL,
             isAdmin         INTEGER NOT NULL DEFAULT 0,
             done            INTEGER NOT NULL DEFAULT 0,
             created         TEXT    DEFAULT (datetime('now'))
@@ -144,6 +141,136 @@ public class DatabaseManager {
             System.err.println("Creation of Manage_Questions table has failed" + e.getMessage());
         }
     }
+
+    /**
+     * These are insert queries for the database.
+     */
+    public void insertUserID (int userID) {
+        String insertUserIDQuery = "INSERT INTO main.Users (userID) VALUES (?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertUserIDQuery)) {
+            preparedStatement.setInt(1, userID);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Insertion of entries has failed." + e.getMessage());
+        }
+    };
+
+    /**
+     * These are insert queries for the database.
+     */
+    public void insertUsername (String username) {
+        String insertUsernameQuery = "INSERT INTO main.Users (username) VALUES (?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertUsernameQuery)) {
+            preparedStatement.setString(2, username);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Insertion of entries has failed." + e.getMessage());
+        }
+    };
+
+    /**
+     * These are insert queries for the database.
+     */
+    public void insertEmailAddress (String email_address) {
+        String insertEmailAddressQuery = "INSERT INTO main.Users (email_address) VALUES (?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertEmailAddressQuery)) {
+            preparedStatement.setString(3, email_address);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Insertion of entries has failed." + e.getMessage());
+        }
+    };
+
+    /**
+     * These are insert queries for the database.
+     */
+    public void insertName (String name) {
+        String insertNameQuery = "INSERT INTO main.Users (name) VALUES (?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertNameQuery)) {
+            preparedStatement.setString(4, name);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Insertion of entries has failed." + e.getMessage());
+        }
+    };
+
+    /**
+     * These are insert queries for the database.
+     */
+    public void insertPassword (String password) {
+        String insertPasswordQuery = "INSERT INTO main.Users (password) VALUES (?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertPasswordQuery)) {
+            preparedStatement.setString(5, insertPasswordQuery);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Insertion of entries has failed." + e.getMessage());
+        }
+    };
+
+    /**
+     * These are insert queries for the database.
+     */
+    public void insertIsAdmin (int isAdmin) {
+        String insertIsAdminQuery = "INSERT INTO main.Users (isAdmin) VALUES (?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertIsAdminQuery)) {
+            preparedStatement.setInt(6, isAdmin);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Insertion of entries has failed." + e.getMessage());
+        }
+    };
+
+    /**
+     * These are insert queries for the database.
+     */
+    public void insertDone (int done) {
+        String insertDoneQuery = "INSERT INTO main.Users (done) VALUES (?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertDoneQuery)) {
+            preparedStatement.setInt(7, done);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Insertion of entries has failed." + e.getMessage());
+        }
+    };
+
+    /**
+     * These are insert queries for the database.
+     */
+    public void insertCreated (int created) {
+        String insertCreatedQuery = "INSERT INTO main.Users (created) VALUES (?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertCreatedQuery)) {
+            preparedStatement.setInt(8, created);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Insertion of entries has failed." + e.getMessage());
+        }
+    };
+
+
+    /**
+     * These are insert queries for the database.
+     */
+    public void insertFullRow (int userID, String username, String email_address, String name, String password, int isAdmin, int done, int created){
+        String insertFullRowQuery = """
+              INSERT INTO main.Users
+              (userID, username, email_address, name, password, isAdmin, done, created)
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+              """;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertFullRowQuery)) {
+            preparedStatement.setInt(1, userID);
+            preparedStatement.setString(2, username);
+            preparedStatement.setString(3, email_address);
+            preparedStatement.setString(4, name);
+            preparedStatement.setString(5, password);
+            preparedStatement.setInt(6, isAdmin);
+            preparedStatement.setInt(7, done);
+            preparedStatement.setInt(8, created);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Insertion of entries has failed." + e.getMessage());
+
+        }
+    };
 
     /**
      * These are queries to get information for each user from the database.
@@ -203,12 +330,12 @@ public class DatabaseManager {
     }
 
     public boolean registerUser(String username, String email, String password) {
-        String query = "INSERT INTO Users (username, email_address, password, name) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO Users (username, email_address, name, password) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setString(1, username);
             stmt.setString(2, email);
-            stmt.setString(3, password);
-            stmt.setString(4, username);
+            stmt.setString(3, username);
+            stmt.setString(4, password);
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -216,7 +343,6 @@ public class DatabaseManager {
             return false;
         }
     }
-
 
 }
 

@@ -2,6 +2,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -19,7 +20,12 @@ import javafx.geometry.Insets;   // ✅ CORRECT
  * @since 4/14/2026
  */
 public class AdminDashboardScene {
-  public static Scene create(Stage stage) {
+  public static Scene create(Stage stage, DatabaseManager db) {
+    return create(stage, db, "");
+  }
+
+
+  public static Scene create(Stage stage, DatabaseManager db, String username) {
     // Layout: Window dimensions in pixels
     int SCENE_WIDTH = 600;
     int SCENE_HEIGHT = 500;
@@ -38,11 +44,12 @@ public class AdminDashboardScene {
     int BUTTON_WIDTH = 200;
     int BUTTON_HEIGHT = 50;
     int BUTTON_FONT_SIZE = 20;
+    int LOGOUT_FONT_SIZE = 15;
 
     // Creating the labels
     //Label welcome = new Label(String.format(WELCOME_MESSAGE, username));
 
-    Label welcome = new Label(WELCOME_MESSAGE);
+    Label welcome = new Label(String.format(WELCOME_MESSAGE, username));
     Label clickLogout = new Label(LOGOUT);
 
     //  Creating the buttons
@@ -72,13 +79,36 @@ public class AdminDashboardScene {
     VBox.setVgrow(spacer, Priority.ALWAYS);
 
     //Cosmetic coloring
+    DropShadow dropShadow = new DropShadow();
+
     manageQuestions.setTextFill(Color.WHITE);
-    manageQuestions.setStyle("-fx-background-color: #FF4D00;");
+    manageQuestions.setEffect(dropShadow);
+    manageQuestions.setStyle("-fx-background-color: #FF4D00;" +
+                             "-fx-border-color: #000000;" +
+                             "-fx-border-width: 2px;" +
+                             "-fx-background-insets: 0;");
 
     manageUsers.setTextFill(Color.WHITE);
-    manageUsers.setStyle("-fx-background-color: #FF4D00");
+    manageUsers.setEffect(dropShadow);
+    manageUsers.setStyle("-fx-background-color: #FF4D00;" +
+                         "-fx-border-color: #000000;" +
+                         "-fx-border-width: 2px;" +
+                         "-fx-background-insets: 0;" );
     welcome.setTextFill(Color.GOLD);
+    welcome.setEffect(dropShadow);
     clickLogout.setTextFill(Color.GOLD);
+    clickLogout.setEffect(dropShadow);
+    clickLogout.setFont(Font.font(LOGOUT_FONT_SIZE));
+
+    // Event handlers
+    manageQuestions.setOnMouseClicked(event -> {
+      stage.setScene(SceneFactory.create(SceneType.QUESTIONSEDITOR, stage, db));
+    });
+
+   clickLogout.setOnMouseClicked(event -> {
+     stage.setScene(SceneFactory.create(SceneType.LOGIN, stage, db));
+   });
+
 
     // Display
     VBox root = new VBox(SPACING);

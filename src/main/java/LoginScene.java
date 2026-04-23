@@ -32,7 +32,7 @@ public class LoginScene {
     int SCENE_WIDTH = 600;
     int SCENE_HEIGHT = 500;
     String LOGIN_TITLE = "Java Flash Trivia";
-    String USERNAME_PROMPT = "Username/email";
+    String USERNAME_PROMPT = "Username";
     String PASSWORD_PROMPT = "Password";
     String CARD_OUTLINE = "#E85D04";
 
@@ -130,7 +130,7 @@ public class LoginScene {
         System.out.println("Login clicked: " + username);
         // Route to ADMINDASHBOARD if username starts with "admin", otherwise USER scene
         if (username.toLowerCase().startsWith("admin")) {
-          stage.setScene(SceneFactory.create(SceneType.ADMINDASHBOARD, stage, db));
+          stage.setScene(AdminDashboardScene.create(stage, db, username));
         } else {
           stage.setScene(SceneFactory.create(SceneType.USER, stage, db));
         }
