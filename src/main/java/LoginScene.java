@@ -32,7 +32,7 @@ public class LoginScene {
     int SCENE_WIDTH = 600;
     int SCENE_HEIGHT = 500;
     String LOGIN_TITLE = "Java Flash Trivia";
-    String USERNAME_PROMPT = "Username/email";
+    String USERNAME_PROMPT = "Username";
     String PASSWORD_PROMPT = "Password";
     String CARD_OUTLINE = "#E85D04";
 
