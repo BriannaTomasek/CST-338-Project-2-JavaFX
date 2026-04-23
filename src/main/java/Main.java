@@ -32,7 +32,7 @@ public class Main extends Application {
        To be deleted after Questions editor is fully implemented
     */
 
-    Scene questionEditor = SceneFactory.create(SceneType.QUESTIONSEDITOR, stage, db);
+    Scene questionEditor = SceneFactory.create(SceneType.ADMINDASHBOARD, stage, db);
     stage.setScene(questionEditor);
     stage.show();
 
