@@ -1,29 +1,29 @@
 /**
- * This class creates and edits a row in the todos table.
+ * This class creates and edits an entry in the userList/a row in Users table.
  * @author Vincent Marinello-Sweeney
  * created 4/22/26
  * @since 4/22/26
- * @version 1.0
+ * @version 2.0
  */
 
 
-public class TodoItem {
-    private final int id;
-    private final String title;
+public class UsersEntries {
+    private final int userId;
+    private final String name;
     private boolean done;
 
-    public TodoItem(int id, String title, boolean done){
-        this.id = id;
-        this.title = title;
+    public UsersEntries(int userId, String name, boolean done){
+        this.userId = userId;
+        this.name = name;
         this.done = done;
     }
 
-    public int getId(){
-        return id;
+    public int getUserId(){
+        return userId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
     public boolean isDone(){
@@ -32,6 +32,6 @@ public class TodoItem {
 
     @Override
     public String toString(){
-        return (done ? "✓" : "○ ") + title;
+        return (done ? "done" : "incomplete ") + name;
     }
 }

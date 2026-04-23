@@ -55,6 +55,14 @@ public class DatabaseManager {
     };
 
     /**
+     * Gets the connection
+     * @return connection
+     */
+    public Connection getConnection(){
+        return connection;
+    }
+
+    /**
      * This method closes the connection.
      */
     public void close(){

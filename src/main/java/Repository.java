@@ -6,14 +6,33 @@
  * @version 1.0
  */
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Repository {
+    DatabaseManager databaseManager = new DatabaseManager();
+    private final Connection connection = databaseManager.getConnection();
+    private final DatabaseManager db = databaseManager.getDatabaseManagerInstance();
+
+    private final List<Observer> observers = new ArrayList<>();
+
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    private void notifyObservers() {
+        //List<UsersEntries> current = databaseManager.getAllUserInfo();
+        List<UsersEntries> current = getAll();
+
+        for(Observer obs : observers) {
+            obs.onListChanged(current);
+        }
+    }
 
     /**
      * These are insert queries for the database.
@@ -284,4 +303,40 @@ public class Repository {
         }
     };
 
+    /**
+     * adds name
+     * @param name
+     */
+    public void add(String name) {
+        db.insertName(name);
+        notifyObservers();
+    }
+
+    /**
+     * Marks it done
+     * @param userId
+     */
+    public void markDone(int userId) {
+        db.markDone(userId);
+        notifyObservers();
+    }
+
+    /**
+     * Deletes user
+     * @param userId
+     */
+    public void delete(int userId) {
+        //db.delete(userID);
+        deleteAnItem(userID);
+        notifyObservers();
+    }
+
+
+    /**
+     * Reads user information
+     * @return list
+     */
+    public List<UsersEntries> getAll() {
+        return (List<UsersEntries>) (db.getAllUserInfo());
+    }
 }
