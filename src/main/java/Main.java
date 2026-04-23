@@ -31,11 +31,11 @@ public class Main extends Application {
     /* For testing: Displays the Manage Questions Editor scene at startup.
        To be deleted after Questions editor is fully implemented
     */
-    /*
-    Scene admin = SceneFactory.create(SceneType.QUESTIONSEDITOR, stage);
-    stage.setScene(admin);
+
+    Scene questionEditor = SceneFactory.create(SceneType.QUESTIONSEDITOR, stage, db);
+    stage.setScene(questionEditor);
     stage.show();
-     */
+
 
 
     //Create DatabaseManager (Vincent Marinello-Sweeney)
