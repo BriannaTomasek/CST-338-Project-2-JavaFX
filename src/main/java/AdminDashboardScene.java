@@ -20,12 +20,12 @@ import javafx.geometry.Insets;   // ✅ CORRECT
  * @since 4/14/2026
  */
 public class AdminDashboardScene {
-  public static Scene create(Stage stage) {
-    return create(stage, "");
+  public static Scene create(Stage stage, DatabaseManager db) {
+    return create(stage, db, "");
   }
 
 
-  public static Scene create(Stage stage, String username) {
+  public static Scene create(Stage stage, DatabaseManager db, String username) {
     // Layout: Window dimensions in pixels
     int SCENE_WIDTH = 600;
     int SCENE_HEIGHT = 500;
@@ -101,10 +101,10 @@ public class AdminDashboardScene {
     clickLogout.setFont(Font.font(LOGOUT_FONT_SIZE));
 
     // Event handlers
-   /* manageQuestions.setOnMouseClicked(event -> {
-      stage.setScene(SceneFactory.create(SceneType.QUESTIONSEDITOR, stage));
+    manageQuestions.setOnMouseClicked(event -> {
+      stage.setScene(SceneFactory.create(SceneType.QUESTIONSEDITOR, stage, db));
     });
-*/
+
 
     // Display
     VBox root = new VBox(SPACING);

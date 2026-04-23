@@ -22,10 +22,10 @@ public abstract class SceneFactory {
       //case USER:
         //return UserScene.create(stage, db);
       case ADMINDASHBOARD:
-        return AdminDashboardScene.create(stage);
+        return AdminDashboardScene.create(stage, db);
       case QUESTIONSEDITOR:
         //This is how to add the questions editor scene
-        return QuestionsEditorScene.create(stage);
+        return QuestionsEditorScene.create(stage, db);
       default:
         throw new IllegalArgumentException("Invalid scene type: " + type);
         //case USER:
