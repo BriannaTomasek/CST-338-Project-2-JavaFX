@@ -1,3 +1,4 @@
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -6,6 +7,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -26,9 +28,10 @@ public class QuestionsEditorScene {
     //Layout: Window dimensions in pixels
     int SCENE_WIDTH = 600;
     int SCENE_HEIGHT = 650;
+    int OPTIONS_PREF_WIDTH = 400;
 
     // Prompts and texts
-    String QUESTIONS = "Questions: ";
+    String QUESTIONS = "Questions:";
     String QUESTIONS_PROMPT = "Enter java question or code.";
     String OPTION1 = "Option 1: ";
     String OPTION2 = "Option 2: ";
@@ -69,10 +72,28 @@ public class QuestionsEditorScene {
     Button mainMenu = new Button(MAIN_MENU);
 
     //Alignment
+    HBox row1 = new HBox(10);
+    HBox row2 = new HBox(10);
+    HBox row3 = new HBox(10);
+
+    row1.setAlignment(Pos.CENTER_LEFT);
+    row2.setAlignment(Pos.CENTER_LEFT);
+    row3.setAlignment(Pos.CENTER_LEFT);
+
+    // Without this, the options text sites against the left wall
+    VBox.setMargin(row1, new Insets(0, 0, 0, 30));
+    VBox.setMargin(row2, new Insets(0, 0, 0, 30));
+    VBox.setMargin(row3, new Insets(0, 0, 0, 30));
+
+    answer1.setPrefWidth(OPTIONS_PREF_WIDTH);
+    answer2.setPrefWidth(OPTIONS_PREF_WIDTH);
+    answer3.setPrefWidth(OPTIONS_PREF_WIDTH);
+
+    row1.getChildren().addAll(option1, answer1);
+    row2.getChildren().addAll(option2, answer2);
+    row3.getChildren().addAll(option3, answer3);
+
     textArea.setMaxWidth(550);
-    answer1.setMaxWidth(550);
-    answer2.setMaxWidth(550);
-    answer3.setMaxWidth(550);
 
     VBox buttonBox = new VBox();
     buttonBox.setSpacing(BUTTON_SPACING);
@@ -92,6 +113,13 @@ public class QuestionsEditorScene {
     VBox.setVgrow(spacer3, Priority.ALWAYS);
 
     // Coloring and effects
+
+    questions.setFont(Font.font(TEXT_SIZE));
+    questions.setTextFill(Color.GOLD);
+    option1.setTextFill(Color.GOLD);
+    option2.setTextFill(Color.GOLD);
+    option3.setTextFill(Color.GOLD);
+
     DropShadow buttonShadow = new DropShadow();
     textArea.setStyle("-fx-border-color: #000000;" +
                       "-fx-border-width: 2px;");
@@ -128,8 +156,7 @@ public class QuestionsEditorScene {
     root.setStyle("-fx-background-color: #1A5064;");
     root.setAlignment(Pos.CENTER);
     root.getChildren().addAll(spacer, questions, textArea, spacer2,
-                        option1, answer1, option2, answer2, option3, answer3,
-                        buttonBox, spacer3);
+                        row1, row2, row3, buttonBox, spacer3);
 
 
     Scene questionsEditorScene= new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
