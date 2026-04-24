@@ -263,7 +263,7 @@ public class DatabaseManager {
             //preparedStatement.setInt(6, isAdmin);
             //preparedStatement.setInt(7, done);
             //preparedStatement.setInt(8, created);
-            //preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Insertion of entries has failed." + e.getMessage());
 
