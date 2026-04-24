@@ -12,6 +12,7 @@ import static javafx.application.Application.launch;
  */
 public class Main extends Application {
     private DatabaseManager db;
+    private Repository repository;
 
   /**
    * This is the primary stage for the application. Sets initial scene to login scene.
@@ -22,21 +23,11 @@ public class Main extends Application {
   public void start(Stage stage) {
     // Creates the login scene using the SceneFactory
     // and sets it as the initial scene for the stage.
+
     db = new DatabaseManager();
     Scene scene = SceneFactory.create(SceneType.LOGIN, stage, db);
     stage.setScene(scene);
     stage.show();
-
-
-    /* For testing: Displays the Manage Questions Editor scene at startup.
-       To be deleted after Questions editor is fully implemented
-    */
-    /*
-    Scene admin = SceneFactory.create(SceneType.QUESTIONSEDITOR, stage);
-    stage.setScene(admin);
-    stage.show();
-     */
-
 
     //Create DatabaseManager (Vincent Marinello-Sweeney)
 
