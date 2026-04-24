@@ -31,5 +31,28 @@ public class GameController {
     public int getQuestionNumber() {
         return currentQuestionIndex + 1;
     }
+    public boolean checkAnswer(int selectedAnswer) {
+        boolean correct = selectedAnswer == correctAnswers[currentQuestionIndex];
+
+        if (correct) {
+            score++;
+        }
+
+        return correct;
+    }
+
+    public boolean hasNextQuestion() {
+        return currentQuestionIndex < questions.length - 1;
+    }
+
+    public void moveToNextQuestion() {
+        if (hasNextQuestion()) {
+            currentQuestionIndex++;
+        }
+    }
+
+    public int getScore() {
+        return score;
+    }
 }
 
