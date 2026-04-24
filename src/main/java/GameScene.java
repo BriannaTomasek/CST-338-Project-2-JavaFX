@@ -4,7 +4,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
+// Brianna Tomasek
 public class GameScene {
 
     public static Scene create(Stage stage, DatabaseManager db) {
