@@ -26,6 +26,8 @@ public abstract class SceneFactory {
       case QUESTIONSEDITOR:
         //This is how to add the questions editor scene
         return QuestionsEditorScene.create(stage, db);
+        case MANAGEUSERS:
+          return ManageUsersScene.create(stage, db);
       default:
         throw new IllegalArgumentException("Invalid scene type: " + type);
     }
