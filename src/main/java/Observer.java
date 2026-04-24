@@ -12,5 +12,5 @@ import java.util.List;
 public interface Observer {
     // Call when list changes
     //userList is the updated list of all users
-    void onListChanged(List<UsersEntries> userList);
+    void onListChanged(List<String> userList);
 }

@@ -27,7 +27,7 @@ public class Repository {
 
     private void notifyObservers() {
         //List<UsersEntries> current = databaseManager.getAllUserInfo();
-        List<UsersEntries> current = getAll();
+        List<String> current = getAll();
 
         for(Observer obs : observers) {
             obs.onListChanged(current);

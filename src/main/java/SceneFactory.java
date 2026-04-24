@@ -1,8 +1,4 @@
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -17,58 +13,24 @@ import javafx.stage.Stage;
  */
 public abstract class SceneFactory {
 
-  public static Scene create(SceneType type, Stage stage, DatabaseManager db, Repository repository) {
-    switch (type) {
-         case GAME:
-            return GameScene.create(stage, db);
-        case LOGIN:
-            return LoginScene.create(stage, db);
-        case REGISTRATION:
-            return RegistrationScene.create(stage, db);
-        case USER:
-            return UserScene.create(stage, db);
-        case ADMINDASHBOARD:
-            return AdminDashboardScene.create(stage, db);
-        //case MAIN: 
-            //return MainScene(stage, db);
-        case DASHBOARD: 
-            return buildDashboardScene(stage, db, repository);
-        case QUESTIONSEDITOR:
-          //This is how to add the questions editor scene
-            return QuestionsEditorScene.create(stage, db);
-        default:
-            throw new IllegalArgumentException("Invalid scene type: " + type);
+    public static Scene create(SceneType type, Stage stage, DatabaseManager db) {
+        switch (type) {
+            case LOGIN:
+                return LoginScene.create(stage, db);
+            case REGISTRATION:
+                return RegistrationScene.create(stage, db);
+            case USER:
+                return UserScene.create(stage, db);
+            case ADMINDASHBOARD:
+                return AdminDashboardScene.create(stage, db);
+            case QUESTIONSEDITOR:
+              return QuestionsEditorScene.create(stage, db);
+            case MANAGEUSERS:
+              return ManageUsersScene.create(stage, db);
+            case DASHBOARD:
+                return DashboardScene.create(stage, db, new Repository());
+            default:
+                throw new IllegalArgumentException("Invalid scene type: " + type);
+        }
     }
-  }
-
-    /**
-     * Creates the dashboard scene
-     * @param stage
-     * @param db
-     * @return scene with 600x400 dimensions
-     */
-    //Vincent Marinello-Sweeney
-    private static Scene buildDashboardScene(Stage stage, DatabaseManager db, Repository repository) {
-        ListView<String> list = new ListView<>();
-
-        list.getItems().addAll(db.getAllUserInfo());
-
-        Button addButton = new Button("Add Item");
-        addButton.setOnAction(e -> {
-            //db.insertName("New User");
-            repository.insertName("New User");
-            list.getItems().setAll(db.getAllUserInfo());
-
-        });
-        Label countLabel = new Label("Users: " + db.getAllUserInfo().size());
-        addButton.setOnAction(e-> {
-            //db.insertName(nameField.getText());
-            list.getItems().setAll(db.getAllUserInfo());
-            list.getItems().setAll(db.getAllUserInfo());
-        });
-
-        VBox layout = new VBox(15, list, addButton);
-        return new Scene(layout, 600, 400);
-    }
-
 }
