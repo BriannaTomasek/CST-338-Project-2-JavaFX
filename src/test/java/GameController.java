@@ -16,5 +16,20 @@ public class GameController {
     };
 
     private final int[] correctAnswers = {1, 1, 1};
+    public String getCurrentQuestion() {
+        return questions[currentQuestionIndex];
+    }
+
+    public String[] getCurrentAnswers() {
+        return answers[currentQuestionIndex];
+    }
+
+    public int getTotalQuestions() {
+        return questions.length;
+    }
+
+    public int getQuestionNumber() {
+        return currentQuestionIndex + 1;
+    }
 }
 
