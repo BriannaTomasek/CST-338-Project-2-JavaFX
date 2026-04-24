@@ -255,15 +255,15 @@ public class DatabaseManager {
               VALUES (?, ?, ?, ?, ?, ?, ?, ?)
               """;
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertFullRowQuery)) {
-            preparedStatement.setInt(1, userID);
+            //preparedStatement.setInt(1, userID);
             preparedStatement.setString(2, username);
             preparedStatement.setString(3, email_address);
             preparedStatement.setString(4, name);
             preparedStatement.setString(5, password);
-            preparedStatement.setInt(6, isAdmin);
-            preparedStatement.setInt(7, done);
-            preparedStatement.setInt(8, created);
-            preparedStatement.executeUpdate();
+            //preparedStatement.setInt(6, isAdmin);
+            //preparedStatement.setInt(7, done);
+            //preparedStatement.setInt(8, created);
+            //preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Insertion of entries has failed." + e.getMessage());
 
