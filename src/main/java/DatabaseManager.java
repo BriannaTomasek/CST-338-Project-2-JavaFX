@@ -69,36 +69,11 @@ public class DatabaseManager {
             System.err.println(e.getMessage());
         }
     }
-
+    
     /**
      * This creates the tables for the database.
      */
     private void createTables() {
-
-        String createResultsTableQuery = """
-        CREATE TABLE IF NOT EXISTS Results (
-            userID              INTEGER PRIMARY KEY UNIQUE NOT NULL,
-            username            TEXT    UNIQUE NOT NULL,
-            email_address       TEXT    UNIQUE NOT NULL,
-            name                TEXT    NOT NULL,
-            question_1_result   TEXT    NOT NULL,
-            question_2_result   TEXT    NOT NULL,
-            question_3_result   TEXT    NOT NULL,
-            question_4_result   TEXT    NOT NULL,
-            question_5_result   TEXT    NOT NULL,
-            question_6_result   TEXT    NOT NULL,
-            question_7_result   TEXT    NOT NULL,
-            isAdmin             INTEGER NOT NULL DEFAULT 0,
-            done                INTEGER NOT NULL DEFAULT 0,
-            created             TEXT    DEFAULT (datetime('now'))
-        )
-        """;
-
-        try (Statement statement = connection.createStatement()) {
-            statement.execute(createResultsTableQuery);
-        } catch (SQLException e) {
-            System.err.println("Creation of Results table has failed" + e.getMessage());
-        }
 
         String createUsersTableQuery = """
         CREATE TABLE IF NOT EXISTS Users (
@@ -118,6 +93,28 @@ public class DatabaseManager {
         } catch (SQLException e) {
             System.err.println("Creation of Users table has failed" + e.getMessage());
         }
+
+
+
+        String createResultsTableQuery = """
+        CREATE TABLE IF NOT EXISTS Results (
+            userID              INTEGER PRIMARY KEY UNIQUE NOT NULL,
+            username            TEXT    UNIQUE NOT NULL,
+            email_address       TEXT    UNIQUE NOT NULL,
+            name                TEXT    NOT NULL,
+            question_result     TEXT    NOT NULL,
+            isAdmin             INTEGER NOT NULL DEFAULT 0,
+            done                INTEGER NOT NULL DEFAULT 0,
+            created             TEXT    DEFAULT (datetime('now'))
+        )
+        """;
+
+        try (Statement statement = connection.createStatement()) {
+            statement.execute(createResultsTableQuery);
+        } catch (SQLException e) {
+            System.err.println("Creation of Results table has failed" + e.getMessage());
+        }
+
 
         String createManageQuestionsTableQuery = """
         CREATE TABLE IF NOT EXISTS Manage_Questions (
