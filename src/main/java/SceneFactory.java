@@ -15,6 +15,8 @@ public abstract class SceneFactory {
 
     public static Scene create(SceneType type, Stage stage, DatabaseManager db) {
         switch (type) {
+            case GAME:
+                return GameScene.create(stage, db);
             case LOGIN:
                 return LoginScene.create(stage, db);
             case REGISTRATION:

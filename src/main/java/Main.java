@@ -25,8 +25,9 @@ public class Main extends Application {
     // and sets it as the initial scene for the stage.
 
     db = new DatabaseManager();
-    Scene scene = SceneFactory.create(SceneType.LOGIN, stage, db);
-    stage.setScene(scene);
+    // Scene scene = SceneFactory.create(SceneType.LOGIN, stage, db);
+    Scene scene = SceneFactory.create(SceneType.USER, stage, db);
+      stage.setScene(scene);
     stage.show();
 
     //Create DatabaseManager (Vincent Marinello-Sweeney)
