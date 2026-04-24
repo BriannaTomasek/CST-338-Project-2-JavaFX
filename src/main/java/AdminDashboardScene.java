@@ -105,6 +105,10 @@ public class AdminDashboardScene {
       stage.setScene(SceneFactory.create(SceneType.QUESTIONSEDITOR, stage, db));
     });
 
+    manageUsers.setOnMouseClicked(event -> {
+      stage.setScene(SceneFactory.create(SceneType.MANAGEUSERS, stage, db));
+    });
+
    clickLogout.setOnMouseClicked(event -> {
      stage.setScene(SceneFactory.create(SceneType.LOGIN, stage, db));
    });

@@ -118,17 +118,12 @@ public class DatabaseManager {
 
         String createManageQuestionsTableQuery = """
         CREATE TABLE IF NOT EXISTS Manage_Questions (
-            userID          INTEGER /*PRIMARY KEY*/ UNIQUE NOT NULL,
-            username        TEXT    UNIQUE NOT NULL,
-            name            TEXT    NOT NULL,
             QID             INTEGER PRIMARY KEY UNIQUE NOT NULL,
             question        TEXT    NOT NULL,
             answer1         TEXT    NOT NULL,
             answer2         TEXT    NOT NULL,
             answer3         TEXT    NOT NULL,
             correctAnswer  INTEGER NOT NULL DEFAULT 0,
-            isAdmin         INTEGER NOT NULL DEFAULT 0,
-            done            INTEGER NOT NULL DEFAULT 0,
             created         TEXT    DEFAULT (datetime('now'))
         )
         """;
@@ -248,27 +243,25 @@ public class DatabaseManager {
     /**
      * These are insert queries for the database.
      */
-    public void insertFullRow (int userID, String username, String email_address, String name, String password, int isAdmin, int done, int created){
+    public void insertFullRow (String username, String email_address, String name, String password, int isAdmin, int done, String created){
         String insertFullRowQuery = """
-              INSERT INTO Users
-              (/*userID,*/ username, email_address, name, password, isAdmin, done, created)
-              VALUES (/*?,*/ ?, ?, ?, ?, ?, ?, ?)
-              """;
+          INSERT INTO Users
+          (username, email_address, name, password, isAdmin, done, created)
+          VALUES (?, ?, ?, ?, ?, ?, ?)
+          """;
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertFullRowQuery)) {
-            //preparedStatement.setInt(1, userID);
-            preparedStatement.setString(2, username);
-            preparedStatement.setString(3, email_address);
-            preparedStatement.setString(4, name);
-            preparedStatement.setString(5, password);
-            preparedStatement.setInt(6, isAdmin);
-            preparedStatement.setInt(7, done);
-            preparedStatement.setInt(8, String.valueOf(created));
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, email_address);
+            preparedStatement.setString(3, name);
+            preparedStatement.setString(4, password);
+            preparedStatement.setInt(5, isAdmin);
+            preparedStatement.setInt(6, done);
+            preparedStatement.setString(7, created);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Insertion of entries has failed." + e.getMessage());
-
         }
-    };
+    }
 
     public void insertQuestions (String question, String answer1, String answer2, String answer3, Integer correctAnswer){
 
@@ -351,19 +344,15 @@ public class DatabaseManager {
 
     // User registration (Ariya Briscoe)
     public boolean registerUser(String username, String email, String password) {
-        String query = "INSERT INTO Users (username, email_address, name, password) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-            stmt.setString(1, username);
-            stmt.setString(2, email);
-            stmt.setString(3, username);
-            stmt.setString(4, password);
-            stmt.executeUpdate();
+        try {
+            insertFullRow(username, email, username, password, 0, 0, "0");
             return true;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.err.println("Registration failed: " + e.getMessage());
             return false;
         }
     }
+
 
 }
 
