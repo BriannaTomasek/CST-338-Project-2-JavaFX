@@ -18,4 +18,10 @@ public class UserToGameUITest extends ApplicationTest {
         stage.setScene(scene);
         stage.show();
     }
+    @Test
+    public void testUserSceneToGameSceneTransition() {
+        clickOn("Start Game");
+
+        verifyThat("Game Play Page", hasText("Game Play Page"));
+    }
 }
