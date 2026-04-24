@@ -251,8 +251,8 @@ public class DatabaseManager {
     public void insertFullRow (int userID, String username, String email_address, String name, String password, int isAdmin, int done, int created){
         String insertFullRowQuery = """
               INSERT INTO Users
-              (userID, username, email_address, name, password, isAdmin, done, created)
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+              (/*userID,*/ username, email_address, name, password, isAdmin, done, created)
+              VALUES (/*?,*/ ?, ?, ?, ?, ?, ?, ?)
               """;
         try (PreparedStatement preparedStatement = connection.prepareStatement(insertFullRowQuery)) {
             //preparedStatement.setInt(1, userID);
@@ -260,9 +260,9 @@ public class DatabaseManager {
             preparedStatement.setString(3, email_address);
             preparedStatement.setString(4, name);
             preparedStatement.setString(5, password);
-            //preparedStatement.setInt(6, isAdmin);
-            //preparedStatement.setInt(7, done);
-            //preparedStatement.setInt(8, created);
+            preparedStatement.setInt(6, isAdmin);
+            preparedStatement.setInt(7, done);
+            preparedStatement.setInt(8, String.valueOf(created));
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Insertion of entries has failed." + e.getMessage());
