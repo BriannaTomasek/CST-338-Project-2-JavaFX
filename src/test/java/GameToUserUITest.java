@@ -9,5 +9,12 @@ import static org.testfx.matcher.control.LabeledMatchers.hasText;
 public class GameToUserUITest extends ApplicationTest {
 
     private DatabaseManager db;
+    @Override
+    public void start(Stage stage) {
+        db = new DatabaseManager();
 
+        Scene scene = GameScene.create(stage, db);
+        stage.setScene(scene);
+        stage.show();
+    }
 }
