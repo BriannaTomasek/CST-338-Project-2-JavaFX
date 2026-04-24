@@ -10,4 +10,12 @@ public class UserToGameUITest extends ApplicationTest {
 
     private DatabaseManager db;
 
+    @Override
+    public void start(Stage stage) {
+        db = new DatabaseManager();
+
+        Scene scene = UserScene.create(stage, db);
+        stage.setScene(scene);
+        stage.show();
+    }
 }
