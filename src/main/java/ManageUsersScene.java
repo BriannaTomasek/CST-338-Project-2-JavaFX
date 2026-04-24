@@ -17,6 +17,6 @@ public class ManageUsersScene {
 
     VBox root = new VBox();
     Scene questionsEditorScene= new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
-    return null;
+    return questionsEditorScene;
   }
 }
