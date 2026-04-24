@@ -250,7 +250,7 @@ public class DatabaseManager {
      */
     public void insertFullRow (int userID, String username, String email_address, String name, String password, int isAdmin, int done, int created){
         String insertFullRowQuery = """
-              INSERT INTO main.Users
+              INSERT INTO Users
               (userID, username, email_address, name, password, isAdmin, done, created)
               VALUES (?, ?, ?, ?, ?, ?, ?, ?)
               """;
@@ -273,7 +273,7 @@ public class DatabaseManager {
     public void insertQuestions (String question, String answer1, String answer2, String answer3, Integer correctAnswer){
 
         String insertFullRowQuery = """
-              INSERT INTO main.Manage_Questions 
+              INSERT INTO Manage_Questions 
               (question, answer1, answer2, answer3, correctAnswer)
               VALUES (?, ?, ?, ?, ?)
               """;
