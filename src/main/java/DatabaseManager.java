@@ -248,7 +248,7 @@ public class DatabaseManager {
     /**
      * These are insert queries for the database.
      */
-    public void insertFullRow (int userID, String username, String email_address, String name, String password, int isAdmin, int done, int created){
+    public void insertFullRow (/*int userID,*/ String username, String email_address, String name, String password, int isAdmin, int done, String created){
         String insertFullRowQuery = """
               INSERT INTO Users
               (/*userID,*/ username, email_address, name, password, isAdmin, done, created)
@@ -262,7 +262,7 @@ public class DatabaseManager {
             preparedStatement.setString(5, password);
             preparedStatement.setInt(6, isAdmin);
             preparedStatement.setInt(7, done);
-            preparedStatement.setInt(8, String.valueOf(created));
+            preparedStatement.setString(8, created);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Insertion of entries has failed." + e.getMessage());
